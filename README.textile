@@ -22,10 +22,10 @@ h3. Rake tasks
 
 h3. TODO
 
-* This README :-)
+* This README! :-)
 * Parameter for compilation level
-* Create a gem
 * Write specs!
+* Create a gem
 
 h3. TASKS::TODO
 

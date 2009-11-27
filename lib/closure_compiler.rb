@@ -73,15 +73,17 @@ JAVASCRIPTS_DIR = "js/"
           result.each do |message|
             out = "#{message['type']}: " + message[op.singularize] + " at line #{message['lineno']} character #{message['charno']}"
             out += message['line']
-            return out
+#            return out
           end
         else
-          return "No #{op} found"
+          return "No #{op}"
         end
       rescue
         out = "Error parsing JSON output...Check your output"
       end    
     end
+    new_out = "Compilation was a success! \n" unless op.equal?("serverErrors")
+    new_out += out
   end
 
   # Parses and returns JSON server response
