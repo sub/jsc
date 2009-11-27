@@ -12,7 +12,7 @@ The library is a single file, so you can include it and just call the ClosureCom
 h3. Functionalities
 
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile("statistics", file_name) )
-* Handling of JSON responses, parse and print them (same output of Google web interface except for statistics)
+* Handling of JSON responses, parse and print them (same output of the Google service web interface)
 * Handling of Server Errors responses
 
 h3. Rake tasks
@@ -23,7 +23,6 @@ h3. Rake tasks
 h3. TODO
 
 * This README :-)
-* Better "statistics" output parsing
 * Parameter for compilation level
 * Create a gem
 * Write specs!

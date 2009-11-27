@@ -61,8 +61,7 @@ JAVASCRIPTS_DIR = "js/"
       out = parsed_response['compiledCode']
     when "statistics"
       result = parsed_response['statistics']
-      size_improvement = result['originalSize'] - result['compressedSize']
-      out =  "You'd got a size improvement of #{size_improvement} in #{result['compileTime']} msec"
+      out = create_statistics_output(result)
     when "serverErrors"
       result = parsed_response['serverErrors']
       out = "Server Error: #{result['error']} - Error Code: #{result['code']}"
@@ -83,6 +82,17 @@ JAVASCRIPTS_DIR = "js/"
         out = "Error parsing JSON output...Check your output"
       end    
     end
+  end
+
+  # Parses and returns JSON server response
+  def ClosureCompiler.create_statistics_output(result)
+    size_improvement = result['originalSize'] - result['compressedSize']
+    size_gzip_improvement = result['originalGzipSize'] - result['compressedGzipSize']
+    rate_improvement = (size_improvement * 100)/result['originalSize']
+    rate_gzip_improvement = (size_gzip_improvement * 100)/result['originalGzipSize']
+    out = "Original Size: #{result['originalSize']} bytes (#{result['originalGzipSize']} bytes gzipped) \n"
+    out += "Compiled Size: #{result['compressedSize']} bytes (#{result['compressedGzipSize']} bytes gzipped) \n"
+    out += "\t Saved #{rate_improvement}% off the original size (#{rate_gzip_improvement}% off the gzipped size)"
   end
 
 end
