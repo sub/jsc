@@ -2,7 +2,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-require 'lib/closure_compiler.rb'
+require 'lib/google_closure_compiler'
 
 require 'term/ansicolor'
 
@@ -48,8 +48,11 @@ namespace :cc do
   task :compile, :file_name do |t, args|
 
     puts ClosureCompiler.compile("compiled_code", args.file_name)
+    puts "*******************"
     puts ClosureCompiler.compile("warnings", args.file_name)
+    puts "*******************"
     puts ClosureCompiler.compile("errors", args.file_name)
+    puts "*******************"
     puts ClosureCompiler.compile("statistics", args.file_name)
 
   end

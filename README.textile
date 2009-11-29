@@ -1,7 +1,7 @@
 h2. Google Closure Compiler
 
 This plugin is a pure Ruby REST API to "Google Closure Compiler service":http://code.google.com/closure/compiler/.
-Its proposal is to offer a simple and clear ruby API to the service, you could use it in many ways even if actually it's just a one-day work :-)
+Its proposal is to offer a simple and clear ruby API to the service, you could use it in many ways even if at the moment it's just a one-day work :-)
 
 As samples and part of the project this repository includes a Rakefile with some tasks. Check them!
 
