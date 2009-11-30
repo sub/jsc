@@ -93,8 +93,8 @@ JAVASCRIPTS_DIR = "js/"
     rate_improvement = (size_improvement * 100)/result['originalSize']
     rate_gzip_improvement = (size_gzip_improvement * 100)/result['originalGzipSize']
     out = "Original Size: #{result['originalSize']} bytes (#{result['originalGzipSize']} bytes gzipped) \n"
-    out += "Compiled Size: #{result['compressedSize']} bytes (#{result['compressedGzipSize']} bytes gzipped) \n"
-    out += "\t Saved #{rate_improvement}% off the original size (#{rate_gzip_improvement}% off the gzipped size)"
+    out << "Compiled Size: #{result['compressedSize']} bytes (#{result['compressedGzipSize']} bytes gzipped) \n"
+    out << "\t Saved #{rate_improvement}% off the original size (#{rate_gzip_improvement}% off the gzipped size)"
   end
 
 end
