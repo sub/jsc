@@ -32,6 +32,23 @@ describe GoogleClosureCompiler do
         ["code","level","format","info"].each { |key| @request[key.intern].should }
       end
     end
+
+    describe 'send a request for compilation level' do
+      before do
+        @code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
+      end
+
+      it 'should send a WHITESPACE_ONLY request' do
+        request = ClosureCompiler.create_json_request(@code, "errors", "WHITESPACE_ONLY")
+        require ""uest['level'].should == 'WHITESPACE_ONLY'
+      end
+    
+      it 'should send an ADVANCED_OPTIMIZATIONS request' do
+        request = ClosureCompiler.create_json_request(@code, "errors", "ADVANCED_OPTIMIZATIONS")
+        request['level'].should == 'ADVANCED_OPTIMIZATIONS'
+      end
+
+    end
     
     describe 'create a JSON compile-code request (default request)' do
       before do
@@ -73,6 +90,7 @@ describe GoogleClosureCompiler do
         code.should_not be_nil
       end
     end
+
 
     describe 'send a JSON error request' do
       before do

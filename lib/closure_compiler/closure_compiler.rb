@@ -13,17 +13,19 @@ module ClosureCompiler
 JAVASCRIPTS_DIR = "js/"
 GOOGLE_SERVICE_ADDRESS = "http://closure-compiler.appspot.com/compile"
 DEFAULT_SERVICE = "compiled_code"
+DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
 
   # this method creates the json hash for the request
   # param: op is the service request
   # error for errors
   # etc
   # default : request for compiled code
-  def ClosureCompiler.create_json_request(code, op = nil)
+  def ClosureCompiler.create_json_request(code, op = nil, level = nil)
     op ||= DEFAULT_SERVICE
+    level ||= DEFAULT_LEVEL
     parameters = {
     	"code" => code,
-	"level" => "SIMPLE_OPTIMIZATIONS",
+	"level" => level,
 	"format"   => "json",
 	"info"  => op
 	}
@@ -40,9 +42,10 @@ DEFAULT_SERVICE = "compiled_code"
     resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
   end
 
-  def ClosureCompiler.compile(file_name, op)
+  def ClosureCompiler.compile(file_name, op, level)
     javascript_code = read_file(file_name)
-    resp, data = post_to_cc(create_json_request(javascript_code, op))
+    level ||= DEFAULT_LEVEL
+    resp, data = post_to_cc(create_json_request(javascript_code, op, level))
     parse_json_output(data, op)
   end
 
