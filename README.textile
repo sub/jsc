@@ -9,7 +9,7 @@ h3. Installing
 
 The library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations) function, check for samples in the rake file.
 
-h3. Functionalities
+h3. Features
 
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics") )
 * Handling of JSON responses, parse and print them (same output of the Google service web interface!)
