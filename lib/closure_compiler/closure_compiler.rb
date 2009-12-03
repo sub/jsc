@@ -36,13 +36,13 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
       'js_code' => data["code"],
       'compilation_level' => data["level"],
       'output_format' => data["format"],
-      'output_info' => data["info"],
+      'output_info' => data["info"]
     }
     # send the request
     resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
   end
 
-  def ClosureCompiler.compile(file_name, op, level)
+  def ClosureCompiler.compile(file_name, op, level = nil)
     javascript_code = read_file(file_name)
     level ||= DEFAULT_LEVEL
     resp, data = post_to_cc(create_json_request(javascript_code, op, level))
