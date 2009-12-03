@@ -3,5 +3,23 @@
 require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
 
-# Put your code here
+# Give me errors!
+code_to_compile = "functiont hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
+puts ClosureCompiler.compile(code_to_compile, "errors")
 
+# Read file and compile it!
+# If you want to pass a file to the script, first read it with read_file
+# function passing it the relative path of the file
+code_to_compile, result = ClosureCompiler.read_file('test.js')
+if result
+  compiled_code = ClosureCompiler.compile(code_to_compile, "compiled_code")
+  unless compiled_code.nil?
+    puts compiled_code
+  end
+else
+    puts "ERROR reading file"
+end
+
+# Give me statistics!
+code_to_compile = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
+puts ClosureCompiler.compile(code_to_compile, "statistics")
