@@ -40,14 +40,13 @@ describe GoogleClosureCompiler do
 
       it 'should send a WHITESPACE_ONLY request' do
         request = ClosureCompiler.create_json_request(@code, "errors", "WHITESPACE_ONLY")
-        require ""uest['level'].should == 'WHITESPACE_ONLY'
+        request['level'].should == 'WHITESPACE_ONLY'
       end
     
       it 'should send an ADVANCED_OPTIMIZATIONS request' do
         request = ClosureCompiler.create_json_request(@code, "errors", "ADVANCED_OPTIMIZATIONS")
         request['level'].should == 'ADVANCED_OPTIMIZATIONS'
       end
-
     end
     
     describe 'create a JSON compile-code request (default request)' do
@@ -156,7 +155,7 @@ describe GoogleClosureCompiler do
         result.should =~ /Original Size:/
       end
     end
-   end
+  end
 
   describe 'read .js file' do
     before do
@@ -167,6 +166,18 @@ describe GoogleClosureCompiler do
     it 'should return the code without errors' do
       result, value = ClosureCompiler.read_file(@file_name)
       value.should be_true
+    end
+  end
+
+  describe 'compile a whole directory' do
+
+    it 'should get statistics for every file' do
+      js_dir = "js"
+      result = ClosureCompiler.compile_dir(js_dir, "statistics")
+      # suppose I have 2 files in the dir
+      2.times do 
+        result.should =~ /Original Size:/
+      end
     end
   end
 

@@ -42,11 +42,26 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
   end
 
-  def ClosureCompiler.compile(file_name, op, level = nil)
-    javascript_code = read_file(file_name)
-    level ||= DEFAULT_LEVEL
+  def ClosureCompiler.compile_file(file_name, op, level = DEFAULT_LEVEL)
+    javascript_code = read_file(JAVASCRIPTS_DIR + file_name)
     resp, data = post_to_cc(create_json_request(javascript_code, op, level))
     parse_json_output(data, op)
+  end
+
+  def ClosureCompiler.compile(javascript_code, op, level = DEFAULT_LEVEL)
+    resp, data = post_to_cc(create_json_request(javascript_code, op, level))
+    parse_json_output(data, op)
+  end
+
+  def ClosureCompiler.compile_dir(dir, op, level = DEFAULT_LEVEL)
+    out = String.new
+    Dir.entries(dir).each do |file|
+      if File.extname(file) == ".js"
+        out << "Statistics for file #{file}...\n"
+        out << compile_file(file, op, level) + "\n***************\n"
+      end
+    end
+    return out
   end
 
   # Parses and returns JSON server response

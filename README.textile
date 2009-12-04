@@ -13,6 +13,7 @@ h3. Features
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
 * Handling of JSON responses, parse and print them (same output of the Google service web interface!)
 * Handling of Server Errors responses
+* Compile a file or a whole directory
 
 Check the "API Reference":http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html for more info about accepted parameters
 
@@ -20,6 +21,7 @@ h3. Rake tasks
 
 * Every task accepts a file name parameter
 * A rake cc:compile['test.js'] task that execute every check with a single task (we may have some improvements)
+* A rake cc:compile_dir['js'] task that execute a statistics check for every js file in a directory
 
 h3. TODO
 
@@ -27,8 +29,6 @@ h3. TODO
 
 h3. TASKS::TODO
 
-* Improve compile task, execute every request in a single POST?
-* Task to check every file in a folder
 * Change the compile task with an :all task, how do I pass it a parameter?
 
 h3. License
