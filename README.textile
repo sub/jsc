@@ -27,10 +27,6 @@ h3. TODO
 
 * Create a gem (?)
 
-h3. TASKS::TODO
-
-* Change the compile task with an :all task, how do I pass it a parameter?
-
 h3. License
 
 GNU General Public License (GPLv3)
