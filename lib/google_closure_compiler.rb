@@ -1,4 +1,4 @@
-require 'lib/closure_compiler/closure_compiler'
+require 'closure_compiler/closure_compiler'
 
 module GoogleClosureCompiler
 

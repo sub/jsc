@@ -28,7 +28,7 @@ task 'gem:release' => 'test:run'
 
 Bones {
   name  'google_closure_compiler'
-  authors  'fitzarraldo'
+  authors  'sub'
   email  'fitzkarraldo@gmail.com'
   url  'http://github.com/sub/google_closure_compiler'
   version  '0.0.1'
