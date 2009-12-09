@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(
+    File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
+
+# Give me errors!
+puts ClosureCompiler.compile_file("test_errors.js", "errors")
+puts "**************\n"
+
+# Read file and compile it!
+
+# function passing it the relative path of the file
+code_to_compile, result = ClosureCompiler.read_file('test.js')
+if result
+  compiled_code = ClosureCompiler.compile(code_to_compile, "compiled_code")
+  unless compiled_code.nil?
+    puts compiled_code
+  end
+else
+    puts "ERROR reading file\n"
+end
+puts "**************\n"
+
+# Give me statistics!
+code_to_compile = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
+puts ClosureCompiler.compile(code_to_compile, "statistics")
+puts "**************\n"
+
+# Compile a whole directory
+js_dir = "js" # relative path to js directory
+puts "Compiling a WHOLE directory...\n"
+puts ClosureCompiler.compile_dir(js_dir, "statistics")
+puts "**************\n"
