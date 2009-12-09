@@ -1,4 +1,4 @@
-*Google Closure Compiler*
+h1. Google Closure Compiler Ruby REST API
 
 h2. DESCRIPTION:
 
