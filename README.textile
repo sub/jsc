@@ -1,6 +1,9 @@
-h2. Google Closure Compiler
 
-h3. DESCRIPTION:
+Google Closure Compiler
+    by fitzkarraldo
+    http://github.com/sub/google_closure_compiler
+
+== DESCRIPTION:
 
 This plugin is a pure Ruby REST API to "Google Closure Compiler service":http://code.google.com/closure/compiler/ and offers a simple and clear ruby API to the service.
 
@@ -17,7 +20,7 @@ Check the "API Reference":http://code.google.com/intl/it-IT/closure/compiler/doc
 
 h3. SYNOPSIS:
 
-TODO...
+Coming soon
 
 h3. REQUIREMENTS:
 
