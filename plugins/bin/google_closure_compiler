@@ -4,7 +4,7 @@ require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. .. lib google_closure_compiler]))
 
 # Just for sample, read file and compile it!
-code_to_compile, result = ClosureCompiler.read_file('test.js')
+code_to_compile, result = ClosureCompiler.read_file('js/compiled_code.js')
 if result
   compiled_code = ClosureCompiler.compile(code_to_compile, "compiled_code")
   unless compiled_code.nil?
@@ -22,13 +22,13 @@ puts ClosureCompiler.compile_dir(js_dir, "statistics")
 puts "**************\n"
 
 # Execute every check on the file
-puts ClosureCompiler.compile_file("test.js", "compiled_code")
+puts ClosureCompiler.compile_file("js/compiled_code.js", "compiled_code")
 puts "*******************"
-puts ClosureCompiler.compile_file(args.file_name, "warnings")
+puts ClosureCompiler.compile_file("js/compiled_code.js", "warnings")
 puts "*******************"
-puts ClosureCompiler.compile_file(args.file_name, "errors")
+puts ClosureCompiler.compile_file("js/compiled_code.js", "errors")
 puts "*******************"
-puts ClosureCompiler.compile_file(args.file_name, "statistics")
+puts ClosureCompiler.compile_file("js/compiled_code.js", "statistics")
 
 # Give me statistics!
 code_to_compile = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"

@@ -10,7 +10,7 @@ module ClosureCompiler
 
 # CONFIGURE this with the relative path to your javascript
 # folder (typically public/javascripts in a RAILS APP)
-JAVASCRIPTS_DIR = "js/"
+#JAVASCRIPTS_DIR = "js/"
 GOOGLE_SERVICE_ADDRESS = "http://closure-compiler.appspot.com/compile"
 DEFAULT_SERVICE = "compiled_code"
 DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
@@ -43,7 +43,8 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
   end
 
   def ClosureCompiler.compile_file(file_name, op, level = DEFAULT_LEVEL)
-    javascript_code = read_file(JAVASCRIPTS_DIR + file_name)
+#    javascript_code = read_file(JAVASCRIPTS_DIR + file_name)
+    javascript_code = read_file(file_name)
     resp, data = post_to_cc(create_json_request(javascript_code, op, level))
     parse_json_output(data, op)
   end
@@ -102,7 +103,8 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
 
   def ClosureCompiler.read_file(file_name)
     begin
-      content = File.open(JAVASCRIPTS_DIR + file_name).read
+#      content = File.open(JAVASCRIPTS_DIR + file_name).read
+      content = File.open(file_name).read
       return content, true
     rescue
       out = "ERROR reading #{file_name} file"
