@@ -6,7 +6,7 @@ h2. DESCRIPTION:
 
 As samples and part of the project this repository includes a Rakefile with some tasks. Check them!
 
-h3. FEATURES/PROBLEMS:
+h2. FEATURES/PROBLEMS:
 
 
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
@@ -16,25 +16,24 @@ h3. FEATURES/PROBLEMS:
 
 Check the "API Reference":http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html for more info about accepted parameters
 
-h3. SYNOPSIS:
+h2. SYNOPSIS:
 
 Coming soon
 
-h3. REQUIREMENTS:
+h2. REQUIREMENTS:
 
 No requirements
 
-h3. INSTALL:
+h2. INSTALL:
 
 The library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function.
 
-h3. RAKE TASKS
-
+h2. RAKE TASKS
 
 * Every task accepts a file name parameter
 * A rake cc:compile['test.js'] task that execute every check with a single task (we may have some improvements)
 * A rake cc:compile_dir['js'] task that execute a statistics check for every js file in a directory
 
-h3. LICENSE:
+h2. LICENSE:
 
 GNU General Public License (GPLv3)
