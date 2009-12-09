@@ -2,8 +2,8 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-require 'lib/google_closure_compiler'
-require 'lib/closure_compiler/tasks'
+require 'lib/google_closure_compiler.rb'
+#require 'lib/google_closure_compiler/tasks'
 
 require 'term/ansicolor'
 

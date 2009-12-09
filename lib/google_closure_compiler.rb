@@ -1,5 +1,3 @@
-require 'closure_compiler/closure_compiler'
-
 module GoogleClosureCompiler
 
   # :stopdoc:

@@ -1,15 +1,9 @@
 #!/usr/bin/env ruby
 
 require File.expand_path(
-    File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
+    File.join(File.dirname(__FILE__), %w[.. .. lib google_closure_compiler]))
 
-# Give me errors!
-puts ClosureCompiler.compile_file("test_errors.js", "errors")
-puts "**************\n"
-
-# Read file and compile it!
-
-# function passing it the relative path of the file
+# Just for sample, read file and compile it!
 code_to_compile, result = ClosureCompiler.read_file('test.js')
 if result
   compiled_code = ClosureCompiler.compile(code_to_compile, "compiled_code")
@@ -21,13 +15,22 @@ else
 end
 puts "**************\n"
 
-# Give me statistics!
-code_to_compile = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-puts ClosureCompiler.compile(code_to_compile, "statistics")
-puts "**************\n"
-
 # Compile a whole directory
 js_dir = "js" # relative path to js directory
 puts "Compiling a WHOLE directory...\n"
 puts ClosureCompiler.compile_dir(js_dir, "statistics")
+puts "**************\n"
+
+# Execute every check on the file
+puts ClosureCompiler.compile_file("test.js", "compiled_code")
+puts "*******************"
+puts ClosureCompiler.compile_file(args.file_name, "warnings")
+puts "*******************"
+puts ClosureCompiler.compile_file(args.file_name, "errors")
+puts "*******************"
+puts ClosureCompiler.compile_file(args.file_name, "statistics")
+
+# Give me statistics!
+code_to_compile = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
+puts ClosureCompiler.compile(code_to_compile, "statistics")
 puts "**************\n"

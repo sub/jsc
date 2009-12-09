@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(
+    File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
+
+puts ClosureCompiler.compile_file(ARGV[0], "errors")
