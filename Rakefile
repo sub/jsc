@@ -28,9 +28,9 @@ task 'gem:release' => 'test:run'
 
 Bones {
   name  'google_closure_compiler'
-  authors  'FIXME (who is writing this software)'
-  email  'FIXME (your e-mail)'
-  url  'FIXME (project homepage)'
-#  version  GoogleClosureCompiler::VERSION
+  authors  'fitzarraldo'
+  email  'fitzkarraldo@gmail.com'
+  url  'http://github.com/sub/google_closure_compiler'
+  version  '0.0.1'
 }
 
