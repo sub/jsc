@@ -1,11 +1,7 @@
 
-Google Closure Compiler
-    by fitzkarraldo
-    http://github.com/sub/google_closure_compiler
+h2. DESCRIPTION:
 
-== DESCRIPTION:
-
-This plugin is a pure Ruby REST API to "Google Closure Compiler service":http://code.google.com/closure/compiler/ and offers a simple and clear ruby API to the service.
+*Google Closure Compiler* is a pure Ruby REST API to "Google Closure Compiler service":http://code.google.com/closure/compiler/ and offers a simple and clear ruby API to the service.
 
 As samples and part of the project this repository includes a Rakefile with some tasks. Check them!
 
@@ -30,7 +26,7 @@ h3. INSTALL:
 
 The library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function.
 
-h3. Rake tasks
+h3. RAKE TASKS
 
 * Every task accepts a file name parameter
 * A rake cc:compile['test.js'] task that execute every check with a single task (we may have some improvements)
