@@ -1,10 +1,12 @@
-h1. Google Closure Compiler Ruby REST API
+google_closure_compiler Ruby REST API
+    by sub
+    http://github.com/sub/google_closure_compiler
 
-h2. DESCRIPTION:
+== DESCRIPTION:
 
-*Google Closure Compiler* is a pure Ruby REST API to "Google Closure Compiler service":http://code.google.com/closure/compiler/ and offers a simple and clear ruby API to the service.
+<b>Google Closure Compiler</b> is a pure Ruby REST API to {Google Closure Compiler service}[http://code.google.com/closure/compiler/] and offers a simple and clear ruby API to the service.
 
-h2. FEATURES:
+== FEATURES:
 
 The package comes with several commands, the following accepts a shell parameter that is the code that will be sent to the web service:
 * googlecc-compiled-code
@@ -16,7 +18,7 @@ Similar commands exist, but unlike previous ones they act on a file:
 * googlecc-errors
 * googlecc-warnings
 
-Every provided command accept a second parameter too, that is the optimization level parameter as accepted by Google.
+Every command accept a second parameter too, that is the optimization level parameter as accepted by Google.
 
 More in details:
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
@@ -24,22 +26,22 @@ More in details:
 * Handling of Server Errors responses
 * Compile a file or a whole directory
 
-Check the "API Reference":http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html for more info about accepted parameters.
+Check the {API Reference}[http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html] for more info about accepted parameters.
 
-h2. SYNOPSIS:
+== SYNOPSIS:
 
 Check the plugins dir for samples or snippets.
 
-h2. REQUIREMENTS:
+== REQUIREMENTS:
 
 No requirements
 
-h2. INSTALL:
+== INSTALL:
 
 gem install google_closure_compiler
 
 Anywhere the library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function everywhere.
 
-h2. LICENSE:
+== LICENSE:
 
 GNU General Public License (GPLv3)
