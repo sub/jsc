@@ -16,6 +16,8 @@ Similar commands exist, but unlike previous ones they act on a file:
 * googlecc-errors
 * googlecc-warnings
 
+Every provided command accept a second parameter too, that is the optimization level parameter as accepted by Google.
+
 More in details:
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
 * Handling of JSON responses, parse and print them (same output of the Google service web interface!)

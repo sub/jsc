@@ -3,4 +3,4 @@
 require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
 
-puts ClosureCompiler.compile_file(ARGV[0], "compiled_code")
+puts ClosureCompiler.compile_file(ARGV[0], "compiled_code", ARGV[1])
