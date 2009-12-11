@@ -4,7 +4,7 @@ google_closure_compiler Ruby REST API
 
 == DESCRIPTION:
 
-<b>Google Closure Compiler</b> is a pure Ruby REST API to {Google Closure Compiler service}[http://code.google.com/closure/compiler/] and offers a simple and clear ruby API to the service.
+<b>google_closure_compiler</b> offers a simple and clear Ruby REST API to {Google Closure Compiler service}[http://code.google.com/closure/compiler/].
 
 == FEATURES:
 
@@ -18,25 +18,29 @@ More in details:
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
 * Handling of JSON responses, parse and print them (same output of the Google service web interface!)
 * Handling of Server Errors responses
-* Compile a file or a whole directory
+* Compile a piece of code, a file or a whole directory
 
-Check the {API Reference}[http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html] for more info about accepted parameters.
+Check {Google API Reference}[http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html] for more info about accepted parameters.
 
 == SYNOPSIS:
 
-Check the plugins dir for samples or snippets.
-
-Sample of use:
+Compile a file:
 
   ruby bin/jsc -f js/compiled_code.js
 
+Compile a file, check for errors:
+
   ruby bin/jsc -f js/errors.js -e
 
-  ruby bin/jsc -f js/errors.js -e 
+Compile a file, check for warnings:
 
-  ruby bin/jsc -f js/errors.js -e "function("
+  ruby bin/jsc -f js/warnings.js -w
 
-NOTE: the library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function everywhere in your code.
+Compile a piece of code, check for errors:
+
+  ruby bin/jsc -e "function("
+
+<b>NOTE</b>: the library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function everywhere in your code. Check the plugins dir for samples or snippets.
 
 == REQUIREMENTS:
 
