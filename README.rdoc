@@ -36,15 +36,21 @@ Sample of use:
 
   ruby bin/jsc -f js/errors.js -e "function("
 
+NOTE: the library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function everywhere in your code.
+
 == REQUIREMENTS:
 
 No requirements
 
 == INSTALL:
 
-gem install google_closure_compiler
+Create your gem with:
 
-Anywhere the library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function everywhere.
+  rake gem:package
+
+In order to install it, run:
+
+  rake gem:install
 
 == LICENSE:
 

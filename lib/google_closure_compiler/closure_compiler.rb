@@ -20,7 +20,7 @@ DEFAULT_SERVICE = "compiled_code"
 # Default compilation_level parameter
 DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
 
-  # Create the <em>JSON</em> hash for the request and return the hash to send along with the request
+  # Creates the <em>JSON</em> hash for the request and returns the hash to send along with the request
   #
   # Accepted parameters:
   # * <b>code</b>: json_code parameter
@@ -37,10 +37,8 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
 	}
   end
 
-  # Send the JSON request hash to Google service and return its response
+  # Sends the JSON request <em>data</em> hash to Google service and returns its response
   #
-  # Accepted paramters:
-  # * <b>data</b>: the json hash
   def ClosureCompiler.post_to_cc(data)
     post_args = { 
       'js_code' => data["code"],
@@ -52,21 +50,22 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
   end
 
-  # Read a file and call compile method
+  # Reads the <em>file_name</em> file and calls compile method on it
   #
   # Accepted parameters:
-  # * <b>file_name</b>: the absolute path to the file
+  # * <b>file_name</b>: absolute path to file
   # * <b>op</b>: output_info parameter
   # * <b>level</b>: compilation_level parameter
   def ClosureCompiler.compile_file(file_name, op, level = DEFAULT_LEVEL)
 #    javascript_code = read_file(JAVASCRIPTS_DIR + file_name)
-    javascript_code = read_file(file_name)
-    compile(javascript_code, op, level)
 #    resp, data = post_to_cc(create_json_request(javascript_code, op, level))
 #    parse_json_output(data, op)
+
+    javascript_code = read_file(file_name)
+    compile(javascript_code, op, level)
   end
 
-  # Compile code and return parsed output
+  # Compiles <em>javascript_code</em> code and returns parsed output
   #
   # Accepted parameters:
   # * <b>javascript_code</b>: the code to compile
@@ -77,7 +76,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     parse_json_output(data, op)
   end
 
-  # Call compile method for every file in a dir
+  # Calls compile method for every file in <em>dir</em> directory
   #
   # Accepted parameters:
   # * <b>dir</b>: the directory
@@ -94,7 +93,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     return out
   end
 
-  # Parse and return JSON server response
+  # Parses and returns JSON server <em>response</em>
   #
   # Accepted parameters:
   # * <b>response</b>: the server response
@@ -134,7 +133,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     end
   end
 
-  # Read file and return its content
+  # Reads file and returns its content
   #
   # Accepted parameters:
   # * <b>file_name</b>: the absolute path to the file
@@ -149,7 +148,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     end
   end
 
-  # Parses and returns JSON server response
+  # Parses and returns the <em>result</em> JSON server response
   #
   # Accepted parameters:
   # * <b>result</b>: the already parsed JSON server response
