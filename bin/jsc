@@ -46,8 +46,7 @@ opts = GetoptLong.new(
                       )
 
 file = false
-output_info = "compiled_code"
-level, file_path = String.new
+output_info, level, file_path = String.new
 
 opts.each do |opt, arg|
   case opt

@@ -26,16 +26,13 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     #
     # Accepted parameters:
     # * <b>code</b>: json_code parameter
-    # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def create_json_request(code, op = nil, level = nil)
-      op ||= DEFAULT_SERVICE
-      level ||= DEFAULT_LEVEL
+    def create_json_request(code)
       parameters = {
     	"code" => code,
-	"level" => level,
+	"level" => @level,
 	"format"   => "json",
-	"info"  => op
+	"info"  => @op
       }
     end
 
@@ -58,11 +55,11 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     # * <b>file_name</b>: absolute path to file
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def compile_file(file_name, op, level = DEFAULT_LEVEL)
+    def compile_file(file_name, op, level)
       #    javascript_code = read_file(JAVASCRIPTS_DIR + file_name)
       #    resp, data = post_to_cc(create_json_request(javascript_code, op, level))
       #    parse_json_output(data, op)
-
+     
       javascript_code = read_file(file_name)
       compile(javascript_code, op, level)
     end
@@ -73,9 +70,12 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     # * <b>javascript_code</b>: the code to compile
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def compile(javascript_code, op, level = DEFAULT_LEVEL)
-      resp, data = post_to_cc(create_json_request(javascript_code, op, level))
-      parse_json_output(data, op)
+    def compile(javascript_code, op, level)
+      @op = op.blank? ? DEFAULT_SERVICE : op
+      @level = level.blank? ? DEFAULT_LEVEL : level
+
+      resp, data = post_to_cc(create_json_request(javascript_code))
+      parse_json_output(data)
     end
 
     # Calls compile method for every file in <em>dir</em> directory
@@ -84,7 +84,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     # * <b>dir</b>: the directory
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def compile_dir(dir, op, level = DEFAULT_LEVEL)
+    def compile_dir(dir, op, level)
       out = String.new
       Dir.entries(dir).each do |file|
         if File.extname(file) == ".js"
@@ -99,8 +99,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     #
     # Accepted parameters:
     # * <b>response</b>: the server response
-    # * <b>op</b>: output_info parameter
-    def parse_json_output(response, op)
+    def parse_json_output(response)
       out = String.new
       parsed_response = JSON.parse(response, :max_nesting => false)
       #p response
@@ -110,7 +109,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
         return "Server Error: #{result[0]['error']} - Error Code: #{result[0]['code']}"
       end
 
-      case op
+      case @op
       when "compiled_code"
         out = parsed_response['compiledCode']
       when "statistics"
@@ -119,15 +118,15 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
       else "errors"
         #case for errors or warnings
         begin
-          result = parsed_response[op]
+          result = parsed_response[@op]
           unless result.nil?
             result.each do |message|
-              out = "#{message['type']}: " + message[op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
+              out = "#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
               out << message['line'] unless message['line'].nil?
               return out
             end
           else
-            return "No #{op}"
+            return "No #{@op}"
           end
         rescue
           out = "Error parsing JSON output...Check your output"
