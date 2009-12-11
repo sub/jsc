@@ -1,6 +1,6 @@
 
 require File.expand_path(
-    File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
+    File.join(File.dirname(__FILE__), %w[.. lib jsc]))
 
 Spec::Runner.configure do |config|
   # == Mock Framework

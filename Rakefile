@@ -2,8 +2,8 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-require 'lib/google_closure_compiler.rb'
-#require 'lib/google_closure_compiler/tasks'
+require 'lib/jsc.rb'
+#require 'lib/jsc/tasks'
 
 require 'term/ansicolor'
 
@@ -21,16 +21,16 @@ rescue LoadError
 end
 
 ensure_in_path 'lib'
-require 'google_closure_compiler'
+require 'jsc'
 
 task :default => 'test:run'
 task 'gem:release' => 'test:run'
 
 Bones {
-  name  'google_closure_compiler'
+  name  'jsc'
   authors  'sub'
   email  'fitzkarraldo@gmail.com'
-  url  'http://github.com/sub/google_closure_compiler'
+  url  'http://github.com/sub/jsc'
   version  '0.0.1'
   summary 'Google Closure Compiler Ruby REST API'
 }

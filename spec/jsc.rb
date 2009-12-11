@@ -1,7 +1,7 @@
 
 require File.join(File.dirname(__FILE__), %w[spec_helper])
 
-describe GoogleClosureCompiler do
+describe JSCompiler do
 
    describe 'Use the web service through API' do
     
@@ -9,7 +9,7 @@ describe GoogleClosureCompiler do
 
       before do
         code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @request = ClosureCompiler.create_json_request(code)
+        @request = JSCompiler.create_json_request(code)
         @request['level'] = "SIMPLE_OPTIMIZATIONS"
         @request['info'] = "compiled_code"
       end
@@ -38,7 +38,7 @@ describe GoogleClosureCompiler do
     describe 'create a JSON compile-code request (default request)' do
       before do
         code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @request = ClosureCompiler.create_json_request(code)
+        @request = JSCompiler.create_json_request(code)
         @request['level'] = "SIMPLE_OPTIMIZATIONS"
         @request['info'] = "compiled_code"
       end
@@ -63,7 +63,7 @@ describe GoogleClosureCompiler do
     describe 'compile code and get compiled code' do
       before do
         code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = ClosureCompiler.compile(code, "compiled_code", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(code, "compiled_code", "SIMPLE_OPTIMIZATIONS")
       end
  
       it 'should receive the compiled code' do
@@ -74,7 +74,7 @@ describe GoogleClosureCompiler do
     describe 'compile code and find errors' do
       before do
         code = "functiont hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = ClosureCompiler.compile(code, "errors", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(code, "errors", "SIMPLE_OPTIMIZATIONS")
       end
       
       it 'should return the result string' do
@@ -85,7 +85,7 @@ describe GoogleClosureCompiler do
     describe 'compile code and find warnings' do
       before do
         code = "function hello(a){return; alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = ClosureCompiler.compile(code, "warnings", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(code, "warnings", "SIMPLE_OPTIMIZATIONS")
       end
       
       it 'should return the result string' do
@@ -96,7 +96,7 @@ describe GoogleClosureCompiler do
     describe 'compile code and obtain statistics' do
       before do
         code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = ClosureCompiler.compile(code, "statistics", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(code, "statistics", "SIMPLE_OPTIMIZATIONS")
       end
   
       it 'should return the result string' do
@@ -112,7 +112,7 @@ describe GoogleClosureCompiler do
     end
 
     it 'should return the code without errors' do
-      result, value = ClosureCompiler.read_file(@file_name)
+      result, value = JSCompiler.read_file(@file_name)
       value.should be_true
     end
   end
@@ -121,7 +121,7 @@ describe GoogleClosureCompiler do
 
     it 'should get statistics for every file' do
       js_dir = "js"
-      result = ClosureCompiler.compile_dir(js_dir, "statistics", String.new)
+      result = JSCompiler.compile_dir(js_dir, "statistics", String.new)
       # suppose I have 3 files in the dir
       3.times do 
         result.should =~ /Original Size:/

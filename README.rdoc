@@ -1,10 +1,10 @@
-google_closure_compiler Ruby REST API
+jsc, a Ruby REST API to Google Closure Compiler web service
     by sub
-    http://github.com/sub/google_closure_compiler
+    http://github.com/sub/jsc
 
 == DESCRIPTION:
 
-<b>google_closure_compiler</b> offers a simple and clear Ruby REST API to {Google Closure Compiler service}[http://code.google.com/closure/compiler/].
+<b>jsc</b> offers a simple and clear Ruby REST API to {Google Closure Compiler service}[http://code.google.com/closure/compiler/].
 
 == FEATURES:
 
@@ -15,7 +15,7 @@ The package comes with a jsc commands which accepts several options, run
 for help.
 
 More in details:
-* Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
+* Ruby API actually is a single function call (ex: JSCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
 * Handling of JSON responses, parse and print them (same output of the Google service web interface!)
 * Handling of Server Errors responses
 * Compile a piece of code, a file or a whole directory
@@ -40,7 +40,7 @@ Compile a piece of code, check for errors:
 
   ruby bin/jsc -e "function("
 
-<b>NOTE</b>: the library is a single file, so you can include it and just call the ClosureCompiler.compile(file_name, operations, compilation_level) function everywhere in your code. Check the plugins dir for samples or snippets.
+<b>NOTE</b>: the library is a single file, so you can include it and just call the JSCompiler.compile(file_name, operations, compilation_level) function everywhere in your code. Check the plugins dir for samples or snippets.
 
 == REQUIREMENTS:
 

@@ -6,7 +6,7 @@ require 'active_support/core_ext/integer/inflections'
 require 'json'
 require 'net/http'
 
-module ClosureCompiler
+module JSCompiler
 
 # CONFIGURE this with the relative path to your javascript
 # folder (typically public/javascripts in a RAILS APP)

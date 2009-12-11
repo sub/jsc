@@ -1,4 +1,4 @@
-module GoogleClosureCompiler
+module JSCompiler
 
   # :stopdoc:
 #  VERSION = '1.0.0'
@@ -41,7 +41,7 @@ module GoogleClosureCompiler
     Dir.glob(search_me).sort.each {|rb| require rb}
   end
 
-end  # module GoogleClosureCompiler
+end  # module JSCompiler
 
-GoogleClosureCompiler.require_all_libs_relative_to(__FILE__)
+JSCompiler.require_all_libs_relative_to(__FILE__)
 

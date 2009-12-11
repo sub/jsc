@@ -38,7 +38,7 @@ require 'getoptlong'
 require 'rdoc/usage'
 
 require File.expand_path(
-    File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
+    File.join(File.dirname(__FILE__), %w[.. lib jsc]))
 
 opts = GetoptLong.new(
                       [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
@@ -83,7 +83,7 @@ end
 code = ARGV.shift
 
 if file
-    puts ClosureCompiler.compile_file(file_path, output_info, level)
+    puts JSCompiler.compile_file(file_path, output_info, level)
 else
-    puts ClosureCompiler.compile(code, output_info, level)
+    puts JSCompiler.compile(code, output_info, level)
 end
