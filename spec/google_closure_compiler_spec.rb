@@ -78,7 +78,7 @@ describe GoogleClosureCompiler do
       end
       
       it 'should return the result string' do
-        @resp.should =~ /at line/
+        @resp.should match(/at line/)
       end
     end
     
@@ -89,7 +89,7 @@ describe GoogleClosureCompiler do
       end
       
       it 'should return the result string' do
-        @resp.should =~ /at line/
+        @resp.should match(/at line/)
       end  
     end
  
@@ -100,7 +100,7 @@ describe GoogleClosureCompiler do
       end
   
       it 'should return the result string' do
-        @resp.should =~ /Original Size:/
+        @resp.should match(/Original Size:/)
       end
     end
   end
