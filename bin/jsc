@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+# == Synopsis
+#
+# jsc, JavaScript Compiler.
+# 
+# This command compiles your JavaScript code throught Google
+# Closure Compiler Service.
+# Look at http://github.com/sub/google_closure_compiler for more info
+#
+# == Usage
+# 
+# jsc [OPTION] ... CODE
+#
+# -h, --help:
+#    show help
+#
+# --file x, -f x:
+#    compile file x
+#
+# --level value:
+#    compile with level value
+#    If this option is not supplied, SIMPLE_OPTIMIZATIONS will be used
+#    Look at Google API for accepted values
+#
+# --errors, -e:
+#    check for errors
+#
+# --warnings, -w:
+#    check for warnings
+#
+# CODE: The code that will be compiled.
+
+require 'getoptlong'
+require 'rdoc/usage'
+
+require File.expand_path(
+    File.join(File.dirname(__FILE__), %w[.. lib google_closure_compiler]))
+
+opts = GetoptLong.new(
+                      [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
+                      [ '--file', '-f', GetoptLong::OPTIONAL_ARGUMENT ],
+                      [ '--level', GetoptLong::REQUIRED_ARGUMENT ],
+                      [ '--errors', '-e', GetoptLong::NO_ARGUMENT ],
+                      [ '--warnings', '-w', GetoptLong::NO_ARGUMENT ]
+                      )
+
+file = false
+output_info = "compiled_code"
+level, file_path = String.new
+
+opts.each do |opt, arg|
+  case opt
+  when '--help'
+    RDoc::usage
+  when '--file'
+    file = true
+    file_path = arg
+  when '--level'
+    if arg == ''
+      level = "SIMPLE_OPTIMIZATIONS"
+    else
+      level = arg
+    end
+  when '--errors'
+    output_info = "errors"
+  when '--warnings'
+    output_info = "warnings"
+  end
+end
+
+# -f option or CODE arg requested
+unless ARGV.length > 0 or file
+   puts "Missing any argument (try --help)"
+   exit 0
+end
+
+code = ARGV.shift
+
+if file
+    puts ClosureCompiler.compile_file(file_path, output_info, level)
+else
+    puts ClosureCompiler.compile(code, output_info, level)
+end

@@ -8,17 +8,11 @@ google_closure_compiler Ruby REST API
 
 == FEATURES:
 
-The package comes with several commands, the following accepts a shell parameter that is the code that will be sent to the web service:
-* googlecc-compiled-code
-* googlecc-errors
-* googlecc-warnings
+The package comes with a jsc commands which accepts several options, run 
 
-Similar commands exist, but unlike previous ones they act on a file:
-* googlecc-compiled-code
-* googlecc-errors
-* googlecc-warnings
+  jsc --help 
 
-Every command accept a second parameter too, that is the optimization level parameter as accepted by Google.
+for help.
 
 More in details:
 * Ruby API actually is a single function call (ex: ClosureCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
@@ -31,6 +25,16 @@ Check the {API Reference}[http://code.google.com/intl/it-IT/closure/compiler/doc
 == SYNOPSIS:
 
 Check the plugins dir for samples or snippets.
+
+Sample of use:
+
+  ruby bin/jsc -f js/compiled_code.js
+
+  ruby bin/jsc -f js/errors.js -e
+
+  ruby bin/jsc -f js/errors.js -e 
+
+  ruby bin/jsc -f js/errors.js -e "function("
 
 == REQUIREMENTS:
 
