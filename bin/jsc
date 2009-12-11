@@ -18,7 +18,7 @@
 # --file x, -f x:
 #    compile file x
 #
-# --level value:
+# --level value, -l value:
 #    compile with level value
 #    If this option is not supplied, SIMPLE_OPTIMIZATIONS will be used
 #    Look at Google API for accepted values
@@ -26,8 +26,11 @@
 # --errors, -e:
 #    check for errors
 #
-# --warnings, -w:
+# --warns, -w:
 #    check for warnings
+#
+# --stats, -s:
+#    get statistics for compiled code
 #
 # CODE: The code that will be compiled.
 
@@ -40,9 +43,10 @@ require File.expand_path(
 opts = GetoptLong.new(
                       [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
                       [ '--file', '-f', GetoptLong::OPTIONAL_ARGUMENT ],
-                      [ '--level', GetoptLong::REQUIRED_ARGUMENT ],
+                      [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ],
                       [ '--errors', '-e', GetoptLong::NO_ARGUMENT ],
-                      [ '--warnings', '-w', GetoptLong::NO_ARGUMENT ]
+                      [ '--warns', '-w', GetoptLong::NO_ARGUMENT ],
+                      [ '--stats', '-s', GetoptLong::NO_ARGUMENT ]
                       )
 
 file = false
@@ -63,8 +67,10 @@ opts.each do |opt, arg|
     end
   when '--errors'
     output_info = "errors"
-  when '--warnings'
+  when '--warns'
     output_info = "warnings"
+  when '--stats'
+    output_info = "statistics"
   end
 end
 
