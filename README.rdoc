@@ -1,14 +1,14 @@
-jsc, a Ruby REST API to {Google Closure Compiler web service}[http://code.google.com/closure/compiler/]
+jsc, a clear and REST Ruby API to {Google Closure Compiler web service}[http://code.google.com/closure/compiler/]
     by sub
     http://github.com/sub/jsc
 
 == DESCRIPTION:
 
-A simple and clear Ruby REST API to Google Closure Compiler service.
+A clear and REST Ruby API to Google Closure Compiler web service.
 
 == FEATURES:
 
-The package comes with a jsc commands which accepts several options, run 
+The package comes with a jsc commands which accepts several options, run:
 
   jsc --help 
 
@@ -46,6 +46,7 @@ Compile a piece of code, check for errors:
   ruby bin/jsc -e "function("
 
 <b>NOTE</b>: the library is a single file, so you can include it and just call the JSCompiler.compile(file_name, operations, compilation_level) function everywhere in your code. Check the plugins dir for samples or snippets.
+
 <b>UPDATE 20091212</b>: bin file plugins/bin/google_closure_compiler not working at the moment due to changes in project name and structure
 
 == EMACS SNIPPETS
@@ -64,7 +65,7 @@ Now, select the code to compile and run:
 
 == REQUIREMENTS:
 
-No requirements
+jsc require the {bones}[http://gemcutter.org/gems/bones] gem.
 
 == INSTALL:
 
