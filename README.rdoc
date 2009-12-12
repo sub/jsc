@@ -65,7 +65,11 @@ Now, select the code to compile and run:
 
 == REQUIREMENTS:
 
+<<<<<<< HEAD:README.rdoc
 jsc require the {bones}[http://gemcutter.org/gems/bones] gem.
+=======
+jsc require the {bones}[http://gemcutter.org/gems/bones] gem
+>>>>>>> 6faa0b01909a775ab769c176fa5ef032d1f08c09:README.rdoc
 
 == INSTALL:
 
