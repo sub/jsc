@@ -1,10 +1,10 @@
-jsc, a Ruby REST API to Google Closure Compiler web service
+jsc, a Ruby REST API to {Google Closure Compiler web service}[http://code.google.com/closure/compiler/]
     by sub
     http://github.com/sub/jsc
 
 == DESCRIPTION:
 
-<b>jsc</b> offers a simple and clear Ruby REST API to {Google Closure Compiler service}[http://code.google.com/closure/compiler/].
+A simple and clear Ruby REST API to Google Closure Compiler service.
 
 == FEATURES:
 
@@ -16,9 +16,10 @@ for help.
 
 More in details:
 * Ruby API actually is a single function call (ex: JSCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
-* Handling of JSON responses, parse and print them (same output of the Google service web interface!)
+* Handling of JSON responses, parse and print them (same output of the Google web interface!)
 * Handling of Server Errors responses
 * Compile a piece of code, a file or a whole directory
+* <b>Emacs snippet</b> to compile code your code for errors and warnings
 
 Check {Google API Reference}[http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html] for more info about accepted parameters.
 
@@ -36,11 +37,30 @@ Compile a file, check for warnings:
 
   ruby bin/jsc -f js/warnings.js -w
 
+Compile a file and get compression stats:
+
+  ruby bin/jsc -f js/compiled_code.js -s
+
 Compile a piece of code, check for errors:
 
   ruby bin/jsc -e "function("
 
 <b>NOTE</b>: the library is a single file, so you can include it and just call the JSCompiler.compile(file_name, operations, compilation_level) function everywhere in your code. Check the plugins dir for samples or snippets.
+<b>UPDATE 20091212</b>: bin file plugins/bin/google_closure_compiler not working at the moment due to changes in project name and structure
+
+== EMACS SNIPPETS
+
+Wants to compile your code right from Emacs?
+
+Copy 
+
+  plugins/jsc.el
+
+to your emacs <em>load-path</em> and restart Emacs.
+
+Now, select the code to compile and run:
+* <em>CcJe</em> to check for errors
+* <em>CcJw</em> to check for warnings.
 
 == REQUIREMENTS:
 
@@ -48,13 +68,9 @@ No requirements
 
 == INSTALL:
 
-Create your gem with:
+If you have gemcutter in your gem sources, run:
 
-  rake gem:package
-
-In order to install it, run:
-
-  rake gem:install
+  gem install jsc
 
 == LICENSE:
 

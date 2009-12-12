@@ -31,7 +31,7 @@ Bones {
   authors  'sub'
   email  'fitzkarraldo@gmail.com'
   url  'http://github.com/sub/jsc'
-  version  '0.0.1'
+  version  '0.1.0'
   summary 'Google Closure Compiler Ruby REST API'
 }
 
