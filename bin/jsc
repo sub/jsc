@@ -1,52 +1,53 @@
 #!/usr/bin/env ruby
 
-# == Synopsis
-#
-# jsc, JavaScript Compiler.
-# 
-# This command compiles your JavaScript code throught Google
-# Closure Compiler Service.
-# Look at http://github.com/sub/google_closure_compiler for more info
-#
-# == Usage
-# 
-# jsc [OPTION] ... CODE
-#
-# -h, --help:
-#    show help
-#
-# --file x, -f x:
-#    compile file x
-#
-# --level value, -l value:
-#    compile with level value
-#    If this option is not supplied, SIMPLE_OPTIMIZATIONS will be used
-#    Look at Google API for accepted values
-#
-# --errors, -e:
-#    check for errors
-#
-# --warns, -w:
-#    check for warnings
-#
-# --stats, -s:
-#    get statistics for compiled code
-#
-# CODE: The code that will be compiled.
-
 require 'getoptlong'
 require 'rdoc/usage'
 
 require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. lib jsc]))
 
+USAGE_PREAMBLE = <<-EOU
+
+jsc, JavaScript Compiler.
+
+This command compiles your JavaScript code throught Google Closure Compiler Service.
+Look at http://gemcutter.org/gems/jsc for more info.
+
+== Usage
+
+jsc [options] ... CODE
+
+--file x, -f x:
+   compile file x
+
+--errors, -e:
+   check for errors
+
+--warns, -w:
+   check for warnings
+
+--stats, -s:
+   get statistics for compiled code
+
+--level value, -l value:
+   compile with level value
+   If this option is not supplied, SIMPLE_OPTIMIZATIONS will be used
+   (look at Google API for accepted values).
+
+--help, -h:
+   this help
+
+CODE: The code that will be compiled.
+ 
+EOU
+
 opts = GetoptLong.new(
                       [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
                       [ '--file', '-f', GetoptLong::OPTIONAL_ARGUMENT ],
-                      [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ],
                       [ '--errors', '-e', GetoptLong::NO_ARGUMENT ],
                       [ '--warns', '-w', GetoptLong::NO_ARGUMENT ],
-                      [ '--stats', '-s', GetoptLong::NO_ARGUMENT ]
+                      [ '--stats', '-s', GetoptLong::NO_ARGUMENT ],
+                      [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ]
                       )
 
 file = false
@@ -55,7 +56,8 @@ output_info, level, file_path = String.new
 opts.each do |opt, arg|
   case opt
   when '--help'
-    RDoc::usage
+    puts USAGE_PREAMBLE
+    exit 0
   when '--file'
     file = true
     file_path = arg

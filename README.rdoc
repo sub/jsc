@@ -1,12 +1,14 @@
-jsc, a clear and REST Ruby API to {Google Closure Compiler web service}[http://code.google.com/closure/compiler/]
+jsc, JavaScript Compiler
     by sub
     http://github.com/sub/jsc
 
 == DESCRIPTION:
 
-A clear and REST Ruby API to Google Closure Compiler web service.
+Simple Ruby API to Google Closure Compiler Web service.
 
 == FEATURES:
+
+With <b>jsc</b> you can compile your JavaScript code throught {Google Closure Compiler REST service}[http://code.google.com/closure/compiler/].
 
 The package comes with a jsc commands which accepts several options, run:
 
