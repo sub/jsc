@@ -109,10 +109,10 @@ module JSCompiler
           result = parsed_response[@op]
           unless result.nil?
             result.each do |message|
-              out = "#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
-              out << message['line'] unless message['line'].nil?
-              return out
+              out << "#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
+              out << message['line'] + "\n" unless message['line'].nil?
             end
+            return out
           else
             return "No #{@op}"
           end
