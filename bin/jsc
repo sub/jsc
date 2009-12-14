@@ -82,10 +82,5 @@ unless ARGV.length > 0 or file
    exit 0
 end
 
-code = ARGV.shift
-
-if file
-    puts JSCompiler.compile_file(file_path, output_info, level)
-else
-    puts JSCompiler.compile(code, output_info, level)
-end
+arg = file_path.blank? ? ARGV.shift : file_path
+puts JSCompiler.compile(arg, file, output_info, level)

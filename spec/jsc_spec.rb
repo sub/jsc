@@ -1,15 +1,36 @@
 
 require File.join(File.dirname(__FILE__), %w[spec_helper])
 
+        COMPILE_CODE = <<-EOU
+function hello(name) {
+  alert('Hello, ' + name)
+}
+hello('New user');
+EOU
+
+        ERROR_CODE = <<-EOU
+functiont hello(name) {
+  alert('Hello, ' + name)
+}
+hello('New user');
+        EOU
+
+        WARNING_CODE = <<-EOU
+function hello(name) {
+	return;
+  alert('Hello, ' + name)
+}
+hello('New user');
+        EOU
+
 describe JSCompiler do
 
    describe 'Use the web service through API' do
-    
+
     describe 'Put all keys in the request' do
 
       before do
-        code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @request = JSCompiler.create_json_request(code)
+        @request = JSCompiler.create_json_request(COMPILE_CODE)
         @request['level'] = "SIMPLE_OPTIMIZATIONS"
         @request['info'] = "compiled_code"
       end
@@ -37,8 +58,7 @@ describe JSCompiler do
 
     describe 'create a JSON compile-code request (default request)' do
       before do
-        code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @request = JSCompiler.create_json_request(code)
+        @request = JSCompiler.create_json_request(COMPILE_CODE)
         @request['level'] = "SIMPLE_OPTIMIZATIONS"
         @request['info'] = "compiled_code"
       end
@@ -62,8 +82,7 @@ describe JSCompiler do
 
     describe 'compile code and get compiled code' do
       before do
-        code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = JSCompiler.compile(code, "compiled_code", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(COMPILE_CODE, false, "compiled_code", "SIMPLE_OPTIMIZATIONS")
       end
  
       it 'should receive the compiled code' do
@@ -73,30 +92,28 @@ describe JSCompiler do
     
     describe 'compile code and find errors' do
       before do
-        code = "functiont hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = JSCompiler.compile(code, "errors", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(ERROR_CODE, false, "errors", "SIMPLE_OPTIMIZATIONS")
       end
       
       it 'should return the result string' do
         @resp.should match(/at line/)
       end
     end
-    
+
     describe 'compile code and find warnings' do
       before do
-        code = "function hello(a){return; alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = JSCompiler.compile(code, "warnings", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(WARNING_CODE, false, "warnings", "SIMPLE_OPTIMIZATIONS")
+      puts @resp
       end
       
       it 'should return the result string' do
         @resp.should match(/at line/)
       end  
     end
- 
+
     describe 'compile code and obtain statistics' do
       before do
-        code = "function hello(a){alert(\"Hello, \"+a)}hello(\"New user\");"
-        @resp = JSCompiler.compile(code, "statistics", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(COMPILE_CODE, false, "statistics", "SIMPLE_OPTIMIZATIONS")
       end
   
       it 'should return the result string' do

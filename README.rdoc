@@ -47,7 +47,7 @@ Compile a piece of code, check for errors:
 
   ruby bin/jsc -e "function("
 
-<b>NOTE</b>: the library is a single file, so you can include it and just call one of the compile* functions everywhere in your code.
+<b>NOTE</b>: the library is a single file, so you can include it and just call one of the JSCompiler.compile* functions everywhere in your code.
 
 == EMACS SNIPPETS
 

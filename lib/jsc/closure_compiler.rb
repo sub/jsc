@@ -6,19 +6,14 @@ require 'active_support/core_ext/integer/inflections'
 require 'json'
 require 'net/http'
 
-module JSCompiler
-
-# CONFIGURE this with the relative path to your javascript
-# folder (typically public/javascripts in a RAILS APP)
-# NO MORE NEEDED
-#JAVASCRIPTS_DIR = "js/"
-
 # Link to Google Closure Compiler service
 GOOGLE_SERVICE_ADDRESS = "http://closure-compiler.appspot.com/compile"
 # Default output_info parameter
 DEFAULT_SERVICE = "compiled_code"
 # Default compilation_level parameter
 DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
+
+module JSCompiler
 
   class << self
 
@@ -49,32 +44,26 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
       resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
     end
 
-    # Reads the <em>file_name</em> file and calls compile method on it
+    # Compiles a file or a piece of code and returns parsed output
     #
     # Accepted parameters:
-    # * <b>file_name</b>: absolute path to file
+    # * <b>arg</b>: the code or the file path to compile
+    # * <b>is_file</b>: 0 => arg is code
+    #                   1 => arg is a file path
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def compile_file(file_name, op, level)
-      #    javascript_code = read_file(JAVASCRIPTS_DIR + file_name)
-      #    resp, data = post_to_cc(create_json_request(javascript_code, op, level))
-      #    parse_json_output(data, op)
-     
-      javascript_code = read_file(file_name)
-      compile(javascript_code, op, level)
-    end
-
-    # Compiles <em>javascript_code</em> code and returns parsed output
-    #
-    # Accepted parameters:
-    # * <b>javascript_code</b>: the code to compile
-    # * <b>op</b>: output_info parameter
-    # * <b>level</b>: compilation_level parameter
-    def compile(javascript_code, op, level)
+    def compile(arg, is_file, op, level)
       @op = op.blank? ? DEFAULT_SERVICE : op
       @level = level.blank? ? DEFAULT_LEVEL : level
 
-      resp, data = post_to_cc(create_json_request(javascript_code))
+      # if is_file
+      #   js_code = read_file(arg)
+      # else
+      #   js_code = arg
+      # end
+      js_code = is_file ? read_file(arg) : arg
+
+      resp, data = post_to_cc(create_json_request(js_code))
       parse_json_output(data)
     end
 
@@ -89,7 +78,7 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
       Dir.entries(dir).each do |file|
         if File.extname(file) == ".js"
           out << "Statistics for file #{file}...\n"
-          out << compile_file(file, op, level) + "\n***************\n"
+          out << compile(file, true, op, level) + "\n***************\n"
         end
       end
       return out
@@ -102,7 +91,6 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     def parse_json_output(response)
       out = String.new
       parsed_response = JSON.parse(response, :max_nesting => false)
-      #p response
 
       if parsed_response.has_key?("serverErrors") 
         result = parsed_response['serverErrors']
@@ -140,7 +128,6 @@ DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
     # * <b>file_name</b>: the absolute path to the file
     def read_file(file_name)
       begin
-        #      content = File.open(JAVASCRIPTS_DIR + file_name).read
         content = File.open(file_name).read
         return content, true
       rescue
