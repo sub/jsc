@@ -55,6 +55,7 @@ module JSCompiler
     def compile(arg, is_file, op, level)
       @op = op.blank? ? DEFAULT_SERVICE : op
       @level = level.blank? ? DEFAULT_LEVEL : level
+      value = true
 
       if is_file
         js_code, value = read_file(arg)
