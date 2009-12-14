@@ -55,15 +55,25 @@ module JSCompiler
     def compile(arg, is_file, op, level)
       @op = op.blank? ? DEFAULT_SERVICE : op
       @level = level.blank? ? DEFAULT_LEVEL : level
+      value = true
 
-      # if is_file
-      #   js_code = read_file(arg)
-      # else
-      #   js_code = arg
-      # end
-      js_code = is_file ? read_file(arg) : arg
+      if is_file
+        js_code, value = read_file(arg)
+      else
+        js_code = arg
+      end
+      # js_code = is_file ? read_file(arg) : arg
 
-      resp, data = post_to_cc(create_json_request(js_code))
+      unless value
+        return "Error reading file #{arg}"
+      end
+
+      begin
+        resp, data = post_to_cc(create_json_request(js_code))
+      rescue
+        return "Error calling the service...try again later"
+      end
+
       parse_json_output(data)
     end
 
@@ -108,9 +118,15 @@ module JSCompiler
         begin
           result = parsed_response[@op]
           unless result.nil?
+            num = result.size
+            out << "You've got #{result.size} #{@op}\n\n"
+            i = 0
             result.each do |message|
-              out << "#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
-              out << message['line'] + "\n" unless message['line'].nil?
+              i += 1
+              out << "#{@op.singularize.capitalize} n.#{i}\n"
+              out << "\t#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
+              out << "\t" + message['line'] + "\n" unless message['line'].nil?
+              out << "\t----------------\n"
             end
             return out
           else
@@ -131,8 +147,9 @@ module JSCompiler
         content = File.open(file_name).read
         return content, true
       rescue
+        puts "SI"
         out = "ERROR reading #{file_name} file"
-        return out, false
+#        return out, false
       end
     end
 
