@@ -66,7 +66,13 @@ module JSCompiler
       unless value
         return "Error reading file #{arg}"
       end
-      resp, data = post_to_cc(create_json_request(js_code))
+
+      begin
+        resp, data = post_to_cc(create_json_request(js_code))
+      rescue
+        return "Error calling the service...try again later"
+      end
+
       parse_json_output(data)
     end
 
