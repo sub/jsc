@@ -56,13 +56,16 @@ module JSCompiler
       @op = op.blank? ? DEFAULT_SERVICE : op
       @level = level.blank? ? DEFAULT_LEVEL : level
 
-      # if is_file
-      #   js_code = read_file(arg)
-      # else
-      #   js_code = arg
-      # end
-      js_code = is_file ? read_file(arg) : arg
+      if is_file
+        js_code, value = read_file(arg)
+      else
+        js_code = arg
+      end
+      # js_code = is_file ? read_file(arg) : arg
 
+      unless value
+        return "Error reading file #{arg}"
+      end
       resp, data = post_to_cc(create_json_request(js_code))
       parse_json_output(data)
     end

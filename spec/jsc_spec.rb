@@ -126,11 +126,17 @@ describe JSCompiler do
     before do
       #test file
       @file_name = 'js/compiled_code.js'
+      @file_not_found = 'js/not_found.js'
     end
 
     it 'should return the code without errors' do
       result, value = JSCompiler.read_file(@file_name)
       value.should be_true
+    end
+
+    it 'should return error if file not found' do
+      result, value = JSCompiler.read_file(@file_not_found)
+      result.should match(/ERROR reading /)
     end
   end
 
