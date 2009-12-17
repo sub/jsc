@@ -103,7 +103,6 @@ describe JSCompiler do
     describe 'compile code and find warnings' do
       before do
         @resp = JSCompiler.compile(WARNING_CODE, false, "warnings", "SIMPLE_OPTIMIZATIONS")
-      puts @resp
       end
       
       it 'should return the result string' do
@@ -121,29 +120,36 @@ describe JSCompiler do
       end
     end
   end
-  
+
   describe 'read .js file' do
     before do
       #test file
       @file_name = 'js/compiled_code.js'
+      @file_not_found = 'js/not_found.js'
     end
 
     it 'should return the code without errors' do
       result, value = JSCompiler.read_file(@file_name)
       value.should be_true
     end
-  end
 
-  describe 'compile a whole directory' do
-
-    it 'should get statistics for every file' do
-      js_dir = "js"
-      result = JSCompiler.compile_dir(js_dir, "statistics", String.new)
-      # suppose I have 3 files in the dir
-      3.times do 
-        result.should =~ /Original Size:/
-      end
+    it 'should raise exception if file not found' do
+      lambda { JSCompiler.read_file(@file_not_found) }.should raise_error
     end
+
   end
+  
+  # TODO
+  # describe 'compile a whole directory' do
+
+  #   it 'should get statistics for every file' do
+  #     js_dir = "js"
+  #     result = JSCompiler.compile_dir(js_dir, "statistics", "")
+  #     # suppose I have 3 files in the dir
+  #     3.times do 
+  #       result.should =~ /Original Size:/
+  #     end
+  #   end
+  # end
 
 end

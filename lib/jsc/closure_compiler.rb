@@ -57,21 +57,15 @@ module JSCompiler
       @level = level.blank? ? DEFAULT_LEVEL : level
       value = true
 
-      if is_file
-        js_code, value = read_file(arg)
-      else
-        js_code = arg
-      end
-      # js_code = is_file ? read_file(arg) : arg
-
-      unless value
-        return "Error reading file #{arg}"
-      end
-
       begin
+        if is_file
+          js_code, value = read_file(arg)
+        else
+          js_code = arg
+        end
         resp, data = post_to_cc(create_json_request(js_code))
-      rescue
-        return "Error calling the service...try again later"
+      rescue StandardError => e
+        return e
       end
 
       parse_json_output(data)
@@ -84,7 +78,7 @@ module JSCompiler
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
     def compile_dir(dir, op, level)
-      out = String.new
+      out = ""
       Dir.entries(dir).each do |file|
         if File.extname(file) == ".js"
           out << "Statistics for file #{file}...\n"
@@ -99,7 +93,7 @@ module JSCompiler
     # Accepted parameters:
     # * <b>response</b>: the server response
     def parse_json_output(response)
-      out = String.new
+      out = ""
       parsed_response = JSON.parse(response, :max_nesting => false)
 
       if parsed_response.has_key?("serverErrors") 
@@ -119,14 +113,13 @@ module JSCompiler
           result = parsed_response[@op]
           unless result.nil?
             num = result.size
-            out << "You've got #{result.size} #{@op}\n\n"
+            out << "You've got #{result.size} #{@op}\n"
             i = 0
             result.each do |message|
               i += 1
-              out << "#{@op.singularize.capitalize} n.#{i}\n"
+              out << "\n#{@op.singularize.capitalize} n.#{i}\n"
               out << "\t#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
               out << "\t" + message['line'] + "\n" unless message['line'].nil?
-              out << "\t----------------\n"
             end
             return out
           else
@@ -147,8 +140,9 @@ module JSCompiler
         content = File.open(file_name).read
         return content, true
       rescue
-        puts "SI"
-        out = "ERROR reading #{file_name} file"
+#        out = "ERROR reading #{file_name} file"
+#        out = $
+        raise
 #        return out, false
       end
     end
