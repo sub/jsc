@@ -129,14 +129,12 @@ describe JSCompiler do
     end
 
     it 'should return the code without errors' do
-      result, value = JSCompiler.read_file(@file_name)
-      value.should be_true
+      lambda { JSCompiler.read_file(@file_name) }.should_not raise_error
     end
 
     it 'should raise exception if file not found' do
       lambda { JSCompiler.read_file(@file_not_found) }.should raise_error
     end
-
   end
   
   # TODO

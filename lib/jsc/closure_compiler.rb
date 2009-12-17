@@ -59,7 +59,7 @@ module JSCompiler
 
       begin
         if is_file
-          js_code, value = read_file(arg)
+          js_code = read_file(arg)
         else
           js_code = arg
         end
@@ -138,7 +138,7 @@ module JSCompiler
     def read_file(file_name)
       begin
         content = File.open(file_name).read
-        return content, true
+        return content
       rescue
         raise
       end
