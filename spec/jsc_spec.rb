@@ -96,7 +96,7 @@ describe JSCompiler do
       end
       
       it 'should return the result string' do
-        @resp.should match(/at line/)
+        @resp.should match(/Error n./)
       end
     end
 
@@ -106,7 +106,7 @@ describe JSCompiler do
       end
       
       it 'should return the result string' do
-        @resp.should match(/at line/)
+        @resp.should match(/Warning n./)
       end  
     end
 
@@ -119,6 +119,39 @@ describe JSCompiler do
         @resp.should match(/Original Size:/)
       end
     end
+  end
+
+  describe 'FULL code compile' do
+    describe 'without errors or warnings' do
+      before do
+        @resp = JSCompiler.full_compile(COMPILE_CODE, false, "SIMPLE_OPTIMIZATIONS")
+      end
+ 
+      it 'should receive the compiled code' do
+        @resp.should_not be_nil
+      end
+    end
+    
+    describe 'and get errors' do
+      before do
+        @resp = JSCompiler.full_compile(ERROR_CODE, false, "SIMPLE_OPTIMIZATIONS")
+      end
+      
+      it 'should return the result string' do
+        @resp.should match(/Error n./)
+      end
+    end
+
+    describe 'and get warnings' do
+      before do
+        @resp = JSCompiler.full_compile(WARNING_CODE, false, "SIMPLE_OPTIMIZATIONS")
+      end
+      
+      it 'should return the result string' do
+        @resp.should match(/Warning n./)
+      end  
+    end
+
   end
 
   describe 'read .js file' do

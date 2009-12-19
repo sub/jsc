@@ -71,6 +71,21 @@ module JSCompiler
       parse_json_output(data)
     end
 
+    # Compiles a file or a piece of code and returns parsed output
+    # if no errors or warning are found
+    #
+    # Accepted parameters:
+    # * <b>arg</b>: the code or the file path to compile
+    # * <b>is_file</b>: 0 => arg is code
+    #                   1 => arg is a file path
+    # * <b>level</b>: compilation_level parameter
+    def full_compile(arg, file, level)
+      ['errors', 'warnings','compiled_code'].each do |x|
+        str = JSCompiler.compile(arg, file, x, level)
+        return str unless str.eql?("No " + x)
+      end
+    end
+    
     # Calls compile method for every file in <em>dir</em> directory
     #
     # Accepted parameters:

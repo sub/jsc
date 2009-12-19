@@ -29,6 +29,9 @@ jsc [options] ... CODE
 --stats, -s:
    get statistics for compiled code
 
+--all, -a:
+   execute every check for this code
+
 --level value, -l value:
    compile with level value
    If this option is not supplied, SIMPLE_OPTIMIZATIONS will be used
@@ -47,11 +50,12 @@ opts = GetoptLong.new(
                       [ '--errors', '-e', GetoptLong::NO_ARGUMENT ],
                       [ '--warns', '-w', GetoptLong::NO_ARGUMENT ],
                       [ '--stats', '-s', GetoptLong::NO_ARGUMENT ],
+                      [ '--all', '-a', GetoptLong::NO_ARGUMENT ],
                       [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ]
                       )
 
 file = false
-output_info, level, file_path = String.new
+output_info, level, file_path = ""
 
 opts.each do |opt, arg|
   case opt
@@ -73,6 +77,8 @@ opts.each do |opt, arg|
     output_info = "warnings"
   when '--stats'
     output_info = "statistics"
+  when '--all'
+    output_info = "all"
   end
 end
 
@@ -83,4 +89,9 @@ unless ARGV.length > 0 or file
 end
 
 arg = file_path.blank? ? ARGV.shift : file_path
-puts JSCompiler.compile(arg, file, output_info, level)
+
+if output_info.eql?("all")
+  puts JSCompiler.full_compile(arg, file, level)
+else
+  puts JSCompiler.compile(arg, file, output_info, level)
+end
