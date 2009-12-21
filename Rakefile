@@ -33,5 +33,6 @@ Bones {
   url  'http://github.com/sub/jsc'
   version  '0.1.3'
   summary 'Simple Ruby API to Google Closure Compiler Web service'
+  readme_file 'README.rdoc'
 }
 
