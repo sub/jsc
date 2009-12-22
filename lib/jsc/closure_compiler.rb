@@ -76,7 +76,7 @@ module JSCompiler
     #
     # Accepted parameters:
     # * <b>arg</b>: the code or the file path to compile
-    # * <b>is_file</b>: 0 => arg is code
+    # * <b>file</b>: 0 => arg is code
     #                   1 => arg is a file path
     # * <b>level</b>: compilation_level parameter
     def full_compile(arg, file, level)

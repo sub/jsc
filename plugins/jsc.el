@@ -7,7 +7,7 @@
  (let ((tmp-buffer (get-buffer-create "**fitz-cc**"))
        (region-str (buffer-substring (region-beginning) (region-end)))
        (cc-output (shell-command-to-string
-                       (concat "jsc -e \""
+                       (concat "jsc -e -c \""
                                (buffer-substring (region-beginning) (region-end)) "\""))))
    (set-buffer tmp-buffer)
    (goto-char (point-max))
@@ -29,7 +29,7 @@
  (let ((tmp-buffer (get-buffer-create "**fitz-cc**"))
        (region-str (buffer-substring (region-beginning) (region-end)))
        (cc-output (shell-command-to-string
-                       (concat "jsc -w \""
+                       (concat "jsc -w -c \""
                                (buffer-substring (region-beginning) (region-end)) "\""))))
    (set-buffer tmp-buffer)
    (goto-char (point-max))
