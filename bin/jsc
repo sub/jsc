@@ -73,7 +73,7 @@ opts.each do |opt, arg|
     puts USAGE_PREAMBLE
     exit 0
   when '--version'
-    puts 'jsc 0.1.3'
+    puts JSCompiler::VERSION
     exit 0
   when '--code'
     file = false
@@ -97,8 +97,8 @@ end
 
 # -f option or CODE arg requested
 unless ARGV.length > 0 or code
-   puts "Missing any argument (try --help)"
-   exit 0
+  puts "Missing any argument (try --help)"
+  exit 0
 end
 
 arg = code.blank? ? ARGV.shift : code

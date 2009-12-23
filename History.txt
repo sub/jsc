@@ -1,3 +1,9 @@
+== 0.2.0 / 2009-12-14
+
+added -a, -v, -c options
+now compile file by default (-f option removed)
+If no output_info options are passed to bin first check for errors and, if not any, return compiled code
+
 == 0.1.3 / 2009-12-14
 
 BUG fix: now show every error in a file, not just the first
