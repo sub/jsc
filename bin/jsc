@@ -15,7 +15,7 @@ Look at http://gemcutter.org/gems/jsc for more info.
 
 == Usage
 
-jsc [options] ... CODE
+jsc [options] ... ARG
 
 --code x, -c x:
    compile code x
@@ -43,8 +43,14 @@ jsc [options] ... CODE
 --help, -h:
    this help
 
-CODE: The code that will be compiled.
- 
+ARG: A path to a javascript file or the code that will be compiled.
+
+If one of the following options is not specified
+
+-e, -w, -s, -a
+
+the code will be first compiled for errors and only if no errors are found 
+it will return the compiled code 
 EOU
 
 opts = GetoptLong.new(
@@ -99,7 +105,13 @@ arg = code.blank? ? ARGV.shift : code
 
 if output_info.eql?("all")
   puts JSCompiler.full_compile(arg, file, level)
+elsif output_info.blank?
+  errors_output = JSCompiler.compile(arg, file, "errors", level)
+  unless errors_output.eql?("No errors")
+    puts errors_output
+  else
+    puts JSCompiler.compile(arg, file, "", level)
+  end
 else
   puts JSCompiler.compile(arg, file, output_info, level)
-  
 end

@@ -72,12 +72,12 @@ module JSCompiler
     end
 
     # Compiles a file or a piece of code and returns parsed output
-    # if no errors or warning are found
+    # if no errors or warnings are found
     #
     # Accepted parameters:
     # * <b>arg</b>: the code or the file path to compile
     # * <b>file</b>: 0 => arg is code
-    #                   1 => arg is a file path
+    #                1 => arg is a file path
     # * <b>level</b>: compilation_level parameter
     def full_compile(arg, file, level)
       ['errors', 'warnings','compiled_code'].each do |x|

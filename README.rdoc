@@ -27,7 +27,7 @@ Check {Google API Reference}[http://code.google.com/intl/it-IT/closure/compiler/
 
 == SYNOPSIS:
 
-Compile a file:
+Get compiled code, if no errors are found:
 
   ruby bin/jsc js/compiled_code.js
 
@@ -47,7 +47,7 @@ Compile a piece of code, check for errors:
 
   ruby bin/jsc -e -c "function("
 
-Compile a file and get compiled code if no errors or warnigs are found:
+Compile a file and get compiled code if no errors or warnings are found:
 
   ruby bin/jsc js/compiled_code.js -a
 
