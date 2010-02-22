@@ -5,3 +5,4 @@ pkg/
 .#*
 spec/wip_spec.rb
 doc/
+tmp/

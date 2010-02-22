@@ -40,6 +40,13 @@ module JSCompiler
         'output_format' => data["format"],
         'output_info' => data["info"]
       }
+
+      if $debug
+        puts "#DEBUG post_args \n"
+        puts post_args
+        puts "\n"
+      end
+
       # send the request
       resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
     end
@@ -64,6 +71,13 @@ module JSCompiler
           js_code = arg
         end
         resp, data = post_to_cc(create_json_request(js_code))
+
+        if $debug
+          puts "#DEBUG data \n"
+          puts data
+          puts "\n"
+        end
+
       rescue StandardError => e
         return e
       end

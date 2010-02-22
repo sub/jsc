@@ -40,6 +40,9 @@ jsc [options] ... ARG
 --version, -v:
    show version
 
+--debug:
+  activate debug mode
+
 --help, -h:
    this help
 
@@ -61,7 +64,8 @@ opts = GetoptLong.new(
                       [ '--warns', '-w', GetoptLong::NO_ARGUMENT ],
                       [ '--stats', '-s', GetoptLong::NO_ARGUMENT ],
                       [ '--all', '-a', GetoptLong::NO_ARGUMENT ],
-                      [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ]
+                      [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ],
+                      [ '--debug', GetoptLong::NO_ARGUMENT ]
                       )
 
 file = true
@@ -75,6 +79,8 @@ opts.each do |opt, arg|
   when '--version'
     puts JSCompiler::VERSION
     exit 0
+  when '--debug'
+    $debug = true
   when '--code'
     file = false
     code = arg

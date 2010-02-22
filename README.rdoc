@@ -29,27 +29,27 @@ Check {Google API Reference}[http://code.google.com/intl/it-IT/closure/compiler/
 
 Get compiled code, if no errors are found:
 
-  ruby bin/jsc js/compiled_code.js
+  jsc js/compiled_code.js
 
 Compile a file, check for errors:
 
-  ruby bin/jsc js/errors.js -e
+  jsc js/errors.js -e
 
 Compile a file, check for warnings:
 
-  ruby bin/jsc js/warnings.js -w
+  jsc js/warnings.js -w
 
 Compile a file and get compression stats:
 
-  ruby bin/jsc js/compiled_code.js -s
+  jsc js/compiled_code.js -s
 
 Compile a piece of code, check for errors:
 
-  ruby bin/jsc -e -c "function("
+  jsc -e -c "function("
 
 Compile a file and get compiled code if no errors or warnings are found:
 
-  ruby bin/jsc js/compiled_code.js -a
+  jsc js/compiled_code.js -a
 
 == EMACS SNIPPETS
 

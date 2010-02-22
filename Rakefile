@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
@@ -29,10 +30,9 @@ task 'gem:release' => 'test:run'
 Bones {
   name  'jsc'
   authors  'sub'
-  email  'fitzkarraldo@gmail.com'
+  email  'davide.saurino@gmail.com'
   url  'http://github.com/sub/jsc'
   version  JSCompiler::VERSION
   summary 'Simple Ruby API to Google Closure Compiler Web service'
   readme_file 'README.rdoc'
 }
-
