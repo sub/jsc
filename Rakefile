@@ -6,14 +6,6 @@ require 'rake/rdoctask'
 require 'lib/jsc.rb'
 #require 'lib/jsc/tasks'
 
-require 'term/ansicolor'
-
-class Color
-  class << self
-    include Term::ANSIColor
-  end
-end
-
 ## Mr.Bones config
 begin
   require 'bones'

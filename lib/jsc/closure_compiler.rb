@@ -6,12 +6,18 @@ require 'active_support/core_ext/integer/inflections'
 require 'json'
 require 'net/http'
 
+require 'term/ansicolor'
+
 # Link to Google Closure Compiler service
 GOOGLE_SERVICE_ADDRESS = "http://closure-compiler.appspot.com/compile"
 # Default output_info parameter
 DEFAULT_SERVICE = "compiled_code"
 # Default compilation_level parameter
 DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
+
+class String
+  include Term::ANSIColor
+end
 
 module JSCompiler
 
@@ -127,7 +133,10 @@ module JSCompiler
 
       if parsed_response.has_key?("serverErrors") 
         result = parsed_response['serverErrors']
-        return "Server Error: #{result[0]['error']} - Error Code: #{result[0]['code']}"
+        error_message = "Server Error: #{result[0]['error']} \n"
+        error_message << "Error Code: #{result[0]['code']} \n"
+        return error_message.red
+#        return red, bold, error_message, reset
       end
 
       case @op
