@@ -3,7 +3,31 @@ Feature: Run jsc command
   In order to improve my development process
   As a Javascript programmer using jsc
   I should get the correct software output
-  
+
+  Background:
+    Given a file named "js/errors.js" with:
+      """
+      functiont hello(name) {
+      alert('Hello, ' + name)
+      }
+      hello('New user');
+      """
+    And a file named "js/warnings.js" with:
+      """
+      function hello(name) {
+        return;
+      alert('Hello, ' + name)
+      }
+      hello('New user');
+      """
+    And a file named "js/compiled_code.js" with:
+      """
+      function hello(name) {
+      alert('Hello, ' + name)
+      }
+      hello('New user');
+      """
+
   Scenario: Missing params
     When I run "jsc"
     Then I should see exactly "Missing any argument (try --help)\n"
@@ -26,36 +50,14 @@ Feature: Run jsc command
   # Scenario: Get compiled code
 
   Scenario: Compile file and get errors
-    Given a file named "js/errors.js" with:
-      """
-      functiont hello(name) {
-      alert('Hello, ' + name)
-      }
-      hello('New user');
-      """
     When I run "jsc js/errors.js -e"
     Then I should see "You've got 2 errors"
 
   Scenario: Compile file and get warnings
-    Given a file named "js/warnings.js" with:
-      """
-      function hello(name) {
-        return;
-      alert('Hello, ' + name)
-      }
-      hello('New user');
-      """
     When I run "jsc js/warnings.js -w"
     Then I should see "You've got 1 warnings"
 
   Scenario: Compile file and get statistics
-    Given a file named "js/compiled_code.js" with:
-      """
-      function hello(name) {
-      alert('Hello, ' + name)
-      }
-      hello('New user');
-      """
     When I run "jsc js/compiled_code.js -s"
     Then I should see "Original Size:"
     And I should see "Compiled Size:"
