@@ -1,9 +1,27 @@
-syntax: glob
+## MAC OS
+.DS_Store
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## EMACS
 *~
+\#*
+.\#*
+
+## VIM
+*.swp
+
+## PROJECT::GENERAL
+coverage
+rdoc
+pkg
+
+## PROJECT::SPECIFIC
 pkg/
-*#
-.#*
 spec/wip_spec.rb
 doc/
 tmp/
 js/extra/
+jsc.gemspec

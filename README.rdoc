@@ -1,12 +1,12 @@
+== jsc
+
 jsc, JavaScript Compiler
     by Davide Saurino
     http://github.com/sub/jsc
 
-== DESCRIPTION:
-
 Simple Ruby API to Google Closure Compiler Web service.
 
-== FEATURES:
+== Features
 
 With <b>jsc</b> you can compile your JavaScript code throught {Google Closure Compiler REST service}[http://code.google.com/closure/compiler/].
 
@@ -25,7 +25,7 @@ More in details:
 
 Check {Google API Reference}[http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html] for more info about accepted parameters.
 
-== SYNOPSIS:
+== Synopsis
 
 Get compiled code, if no errors are found:
 
@@ -51,7 +51,7 @@ Compile a file and get compiled code if no errors or warnings are found:
 
   jsc js/compiled_code.js -a
 
-== EMACS SNIPPETS
+== Emacs Snippet
 
 Wants to compile your code right from Emacs?
 
@@ -65,24 +65,19 @@ Now, select the code to compile and run:
 * <em>CcJe</em> to check for errors
 * <em>CcJw</em> to check for warnings.
 
-== REQUIREMENTS:
+== Requirements
 
 jsc requires the {bones}[http://gemcutter.org/gems/bones] gem.
 
-== INSTALL:
+<b>NOTE</b>: Since version 0.2.1 bones is no more required, I moved to
+{jeweler }[http://github.com/technicalpickles/jeweler].
+
+== Install
 
 If you have gemcutter in your gem sources, run:
 
   [sudo] gem install jsc
 
-== LICENSE:
+== Copyright
 
-(The MIT License)
-
-Copyright © 2009 Davide Saurino
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ‘Software’), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+Copyright (c) 2010 Davide Saurino. See LICENSE for details.

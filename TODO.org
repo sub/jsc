@@ -1,6 +1,5 @@
 * jsc
 ** have a character below the one where there's error
-** newgem http://newgem.rubyforge.org/ or jeweler http://github.com/technicalpickles/jeweler
 ** implement use of optional parameters of API
 *** FUTURE
 **** OptionParser to parse command input
