@@ -49,7 +49,7 @@ module JSCompiler
 
       if $debug
         puts "#DEBUG post_args \n"
-        puts post_args
+        p post_args
         puts "\n"
       end
 
@@ -80,7 +80,7 @@ module JSCompiler
 
         if $debug
           puts "#DEBUG data \n"
-          puts data
+          p data
           puts "\n"
         end
 
