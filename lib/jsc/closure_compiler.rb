@@ -1,9 +1,9 @@
 require 'rubygems'  # include RubyGems
-gem 'activesupport' # load ActiveSupport
-require 'activesupport' # include ActiveSupport
+#gem 'active_support' # load ActiveSupport
+require 'active_support' # include ActiveSupport
 require 'active_support/core_ext/integer/inflections'
 
-require 'json'
+#require 'json'
 require 'net/http'
 
 # Link to Google Closure Compiler service
@@ -109,7 +109,7 @@ module JSCompiler
     # * <b>response</b>: the server response
     def parse_json_output(response)
       out = ""
-      parsed_response = JSON.parse(response, :max_nesting => false)
+      parsed_response = ActiveSupport::JSON.decode(response)
 
       if parsed_response.has_key?("serverErrors") 
         result = parsed_response['serverErrors']
