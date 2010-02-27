@@ -43,6 +43,9 @@ jsc [options] ... ARG
 --debug:
   activate debug mode
 
+--flymake, -f:
+  call flymake formatter
+
 --help, -h:
    this help
 
@@ -65,11 +68,12 @@ opts = GetoptLong.new(
                       [ '--stats', '-s', GetoptLong::NO_ARGUMENT ],
                       [ '--all', '-a', GetoptLong::NO_ARGUMENT ],
                       [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ],
-                      [ '--debug', GetoptLong::NO_ARGUMENT ]
+                      [ '--debug', GetoptLong::NO_ARGUMENT ],
+                      [ '--flymake','-f',  GetoptLong::NO_ARGUMENT ]
                       )
 
 file = true
-output_info, level, code = ""
+output_info, level, code, type = ""
 
 opts.each do |opt, arg|
   case opt
@@ -98,6 +102,8 @@ opts.each do |opt, arg|
     output_info = "statistics"
   when '--all'
     output_info = "all"
+  when '--flymake'
+    type = "flymake"
   end
 end
 
@@ -110,14 +116,14 @@ end
 arg = code.blank? ? ARGV.shift : code
 
 if output_info.eql?("all")
-  puts JSCompiler.full_compile(arg, file, level)
+  puts JSCompiler.full_compile(arg, file, level, type)
 elsif output_info.blank?
-  errors_output = JSCompiler.compile(arg, file, "errors", level)
+  errors_output = JSCompiler.compile(arg, file, "errors", level, type)
   unless errors_output.eql?("No errors")
     puts errors_output
   else
-    puts JSCompiler.compile(arg, file, "", level)
+    puts JSCompiler.compile(arg, file, "", level, type)
   end
 else
-  puts JSCompiler.compile(arg, file, output_info, level)
+  puts JSCompiler.compile(arg, file, output_info, level, type)
 end

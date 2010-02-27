@@ -44,11 +44,10 @@ Feature: Run jsc command
 
   Scenario: Get version
     When I run "jsc --version"
-    Then I should see "0.2.0"
+    Then I should see "0.2.1"
     And the exit status should be 0
 
   # Scenario: Get compiled code
-
   Scenario: Compile file and get errors
     When I run "jsc js/errors.js -e"
     Then I should see "You've got 2 errors"
@@ -61,3 +60,8 @@ Feature: Run jsc command
     When I run "jsc js/compiled_code.js -s"
     Then I should see "Original Size:"
     And I should see "Compiled Size:"
+
+  Scenario: Compile with flymake mode
+    When I run "jsc js/errors.js -e --flymake"
+    Then I should see "js/errors.js:3: error: JSC_PARSE_ERROR: Parse error. syntax error"
+    Then I should not see "You've got 2 errors"
