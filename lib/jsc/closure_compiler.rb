@@ -6,16 +6,27 @@ require 'active_support/core_ext/integer/inflections'
 #require 'json'
 require 'net/http'
 
+require 'term/ansicolor'
+
 # Link to Google Closure Compiler service
 GOOGLE_SERVICE_ADDRESS = "http://closure-compiler.appspot.com/compile"
 # Default output_info parameter
 DEFAULT_SERVICE = "compiled_code"
 # Default compilation_level parameter
 DEFAULT_LEVEL = "SIMPLE_OPTIMIZATIONS"
+# Default formatting type parameter
+DEFAULT_TYPE = "default"
+
+class String
+  include Term::ANSIColor
+end
 
 module JSCompiler
 
   class << self
+
+    attr_reader :op, :level, :format_type, :file
+    attr_writer :op, :level, :format_type, :file
 
     # Creates the <em>JSON</em> hash for the request and returns the hash to send along with the request
     #
@@ -25,9 +36,9 @@ module JSCompiler
     def create_json_request(code)
       parameters = {
     	"code" => code,
-	"level" => @level,
+	"level" => self.level,
 	"format"   => "json",
-	"info"  => @op
+	"info"  => self.op
       }
     end
 
@@ -40,6 +51,13 @@ module JSCompiler
         'output_format' => data["format"],
         'output_info' => data["info"]
       }
+
+      if $debug
+        puts "#DEBUG post_args \n"
+        p post_args
+        puts "\n"
+      end
+
       # send the request
       resp, data = Net::HTTP.post_form(URI.parse(GOOGLE_SERVICE_ADDRESS), post_args)
     end
@@ -52,18 +70,29 @@ module JSCompiler
     #                   1 => arg is a file path
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def compile(arg, is_file, op, level)
-      @op = op.blank? ? DEFAULT_SERVICE : op
-      @level = level.blank? ? DEFAULT_LEVEL : level
+    # * <b>type</b>: the type of parsing requested
+    def compile(arg, is_file, op, level, type)
+      self.op = op.blank? ? DEFAULT_SERVICE : op
+      self.level = level.blank? ? DEFAULT_LEVEL : level
+      self.format_type = type.blank? ? DEFAULT_TYPE : type
+      self.file = ""
       value = true
 
       begin
         if is_file
           js_code = read_file(arg)
+          self.file = arg
         else
           js_code = arg
         end
         resp, data = post_to_cc(create_json_request(js_code))
+
+        if $debug
+          puts "#DEBUG data \n"
+          p data
+          puts "\n"
+        end
+
       rescue StandardError => e
         return e
       end
@@ -79,9 +108,9 @@ module JSCompiler
     # * <b>file</b>: 0 => arg is code
     #                1 => arg is a file path
     # * <b>level</b>: compilation_level parameter
-    def full_compile(arg, file, level)
+    def full_compile(arg, file, level, type)
       ['errors', 'warnings','compiled_code'].each do |x|
-        str = JSCompiler.compile(arg, file, x, level)
+        str = JSCompiler.compile(arg, file, x, level, type)
         return str unless str.eql?("No " + x)
       end
     end
@@ -113,10 +142,13 @@ module JSCompiler
 
       if parsed_response.has_key?("serverErrors") 
         result = parsed_response['serverErrors']
-        return "Server Error: #{result[0]['error']} - Error Code: #{result[0]['code']}"
+        error_message = "Server Error: #{result[0]['error']} \n"
+        error_message << "Error Code: #{result[0]['code']}"
+        return error_message.red
+#        return red, bold, error_message, reset
       end
 
-      case @op
+      case self.op
       when "compiled_code"
         out = parsed_response['compiledCode']
       when "statistics"
@@ -125,23 +157,13 @@ module JSCompiler
       else "errors"
         #case for errors or warnings
         begin
-          result = parsed_response[@op]
-          unless result.nil?
-            num = result.size
-            out << "You've got #{result.size} #{@op}\n"
-            i = 0
-            result.each do |message|
-              i += 1
-              out << "\n#{@op.singularize.capitalize} n.#{i}\n"
-              out << "\t#{message['type']}: " + message[@op.singularize] + " at line #{message['lineno']} character #{message['charno']}\n"
-              out << "\t" + message['line'] + "\n" unless message['line'].nil?
-            end
-            return out
-          else
-            return "No #{@op}"
-          end
-        rescue
-          out = "Error parsing JSON output...Check your output"
+          result = parsed_response[self.op]
+          # call parser
+#          return parse(result)
+          JSCompiler::Parser.parse(result)
+        rescue StandardError => e
+          out = e
+          out << "Error parsing JSON output...Check it."
         end
       end
     end

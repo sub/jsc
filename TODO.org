@@ -1,12 +1,6 @@
 * jsc
-** colourful output in shell!
-** come far uscire un carattere sotto la lettera dove c'è l'errore
-** ann with bones + ann on ruby-talk?
-** test jsc bin file
- (15:02:14) @jabber.org: eh appunto con cucumber
- (15:02:23) @jabber.org: guarda le features di rake-compiler
- (15:02:28) @jabber.org: sono scritte bene
- (15:02:29) @jabber.org: oppure
- (15:02:36) @jabber.org: quelle di ffi-swig-generator
-oppure con aruba http://github.com/aslakhellesoy/aruba
-** newgem http://newgem.rubyforge.org/ o jeweler http://github.com/technicalpickles/jeweler
+** implement use of optional parameters of API
+*** FUTURE
+**** OptionParser to parse command input
+http://www.ruby-doc.org/stdlib/libdoc/optparse/rdoc/classes/OptionParser.htmlb
+

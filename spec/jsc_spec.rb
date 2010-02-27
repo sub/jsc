@@ -82,7 +82,7 @@ describe JSCompiler do
 
     describe 'compile code and get compiled code' do
       before do
-        @resp = JSCompiler.compile(COMPILE_CODE, false, "compiled_code", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(COMPILE_CODE, false, "compiled_code", "SIMPLE_OPTIMIZATIONS", "default")
       end
  
       it 'should receive the compiled code' do
@@ -92,7 +92,7 @@ describe JSCompiler do
     
     describe 'compile code and find errors' do
       before do
-        @resp = JSCompiler.compile(ERROR_CODE, false, "errors", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(ERROR_CODE, false, "errors", "SIMPLE_OPTIMIZATIONS", "default")
       end
       
       it 'should return the result string' do
@@ -102,7 +102,7 @@ describe JSCompiler do
 
     describe 'compile code and find warnings' do
       before do
-        @resp = JSCompiler.compile(WARNING_CODE, false, "warnings", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(WARNING_CODE, false, "warnings", "SIMPLE_OPTIMIZATIONS", "default")
       end
       
       it 'should return the result string' do
@@ -112,7 +112,7 @@ describe JSCompiler do
 
     describe 'compile code and obtain statistics' do
       before do
-        @resp = JSCompiler.compile(COMPILE_CODE, false, "statistics", "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.compile(COMPILE_CODE, false, "statistics", "SIMPLE_OPTIMIZATIONS", "")
       end
   
       it 'should return the result string' do
@@ -124,7 +124,7 @@ describe JSCompiler do
   describe 'FULL code compile' do
     describe 'without errors or warnings' do
       before do
-        @resp = JSCompiler.full_compile(COMPILE_CODE, false, "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.full_compile(COMPILE_CODE, false, "SIMPLE_OPTIMIZATIONS", "")
       end
  
       it 'should receive the compiled code' do
@@ -134,7 +134,7 @@ describe JSCompiler do
     
     describe 'and get errors' do
       before do
-        @resp = JSCompiler.full_compile(ERROR_CODE, false, "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.full_compile(ERROR_CODE, false, "SIMPLE_OPTIMIZATIONS", "")
       end
       
       it 'should return the result string' do
@@ -144,7 +144,7 @@ describe JSCompiler do
 
     describe 'and get warnings' do
       before do
-        @resp = JSCompiler.full_compile(WARNING_CODE, false, "SIMPLE_OPTIMIZATIONS")
+        @resp = JSCompiler.full_compile(WARNING_CODE, false, "SIMPLE_OPTIMIZATIONS", "")
       end
       
       it 'should return the result string' do
