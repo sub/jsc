@@ -1,3 +1,17 @@
+== 0.2.2 / 2010-02-27
+added support for different types of formatters with a new parser module
+added --flymake option to return a flymake compatible output
+
+== 0.2.1 / 2010-02-25
+FIX: user ActiveSupport JSON decoding (JSON.parse fail randomly)
+moved from bones to jeweler
+term/ansicolor module configured as Mixin for strings
+return error messages in red
+added support for cucumber and aruba
+now require rubygems in rakefile
+--debug option added to bin command
+LICENSE file added
+
 == 0.2.0 / 2009-12-14
 
 added -a, -v, -c options

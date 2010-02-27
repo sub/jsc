@@ -4,7 +4,7 @@ jsc, JavaScript Compiler
     by Davide Saurino
     http://github.com/sub/jsc
 
-Simple Ruby API to Google Closure Compiler Web service.
+Ruby API to Google Closure Compiler Web service.
 
 == Features
 
