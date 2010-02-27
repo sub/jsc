@@ -65,13 +65,6 @@ Now, select the code to compile and run:
 * <em>CcJe</em> to check for errors
 * <em>CcJw</em> to check for warnings.
 
-== Requirements
-
-jsc requires the {bones}[http://gemcutter.org/gems/bones] gem.
-
-<b>NOTE</b>: Since version 0.2.1 bones is no more required, I moved to
-{jeweler }[http://github.com/technicalpickles/jeweler].
-
 == Install
 
 If you have gemcutter in your gem sources, run:

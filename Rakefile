@@ -12,7 +12,7 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "jsc"
     gemspec.summary = "Ruby API to Google Closure Compiler Web service"
-#   gemspec.description = "A different and possibly longer explanation of"
+#    gemspec.description = ""
     gemspec.email = "davide.saurino@gmail.com"
     gemspec.homepage = "http://github.com/sub/jsc"
     gemspec.authors = ["Davide Saurino"]
