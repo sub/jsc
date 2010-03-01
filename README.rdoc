@@ -10,18 +10,19 @@ Ruby API to Google Closure Compiler Web service.
 
 With <b>jsc</b> you can compile your JavaScript code throught {Google Closure Compiler REST service}[http://code.google.com/closure/compiler/].
 
-The package comes with a jsc commands which accepts several options, run:
+The package comes with a jsc command which accepts several options, run:
 
   jsc --help 
 
 for help.
 
 More in details:
-* Ruby API actually is a single function call (ex: JSCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
+* Ruby API actually is a single function call ( ex: JSCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
 * Handling of JSON responses, parse and print them (same output of the Google web interface!)
 * Handling of Server Errors responses
-* Compile a piece of code, a file or a whole directory
+* Compile a file or a piece of code
 * <b>Emacs snippet</b> to compile code your code for errors and warnings
+* flymake compatible
 
 Check {Google API Reference}[http://code.google.com/intl/it-IT/closure/compiler/docs/api-ref.html] for more info about accepted parameters.
 
@@ -51,9 +52,20 @@ Compile a file and get compiled code if no errors or warnings are found:
 
   jsc js/compiled_code.js -a
 
-== Emacs Snippet
+== Install
 
-Wants to compile your code right from Emacs?
+If you have gemcutter in your gem sources, run:
+
+  [sudo] gem install jsc
+
+== Emacs+flymake+jsc
+ 
+For GNU Emacs users, jsc provides a {flymake}[http://www.emacswiki.org/emacs/FlyMake] compatible output. So you can use jsc+flymake to have a syntax check tool running in the background while editing your javascript files.
+Look at the {wiki page}[http://wiki.github.com/sub/jsc/flymake] for more info.
+
+== Emacs snippet
+
+Do you want to compile your code right from Emacs?
 
 Copy 
 
@@ -64,12 +76,6 @@ to your emacs <em>load-path</em> and restart Emacs.
 Now, select the code to compile and run:
 * <em>CcJe</em> to check for errors
 * <em>CcJw</em> to check for warnings.
-
-== Install
-
-If you have gemcutter in your gem sources, run:
-
-  [sudo] gem install jsc
 
 == Copyright
 

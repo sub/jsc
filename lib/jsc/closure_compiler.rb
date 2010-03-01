@@ -121,16 +121,16 @@ module JSCompiler
     # * <b>dir</b>: the directory
     # * <b>op</b>: output_info parameter
     # * <b>level</b>: compilation_level parameter
-    def compile_dir(dir, op, level)
-      out = ""
-      Dir.entries(dir).each do |file|
-        if File.extname(file) == ".js"
-          out << "Statistics for file #{file}...\n"
-          out << compile(file, true, op, level) + "\n***************\n"
-        end
-      end
-      return out
-    end
+    # def compile_dir(dir, op, level)
+    #   out = ""
+    #   Dir.entries(dir).each do |file|
+    #     if File.extname(file) == ".js"
+    #       out << "Statistics for file #{file}...\n"
+    #       out << compile(file, true, op, level) + "\n***************\n"
+    #     end
+    #   end
+    #   return out
+    # end
 
     # Parses and returns JSON server <em>response</em>
     #

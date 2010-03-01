@@ -1,8 +1,10 @@
 == 0.2.2 / 2010-02-27
+
 added support for different types of formatters with a new parser module
 added --flymake option to return a flymake compatible output
 
 == 0.2.1 / 2010-02-25
+
 FIX: user ActiveSupport JSON decoding (JSON.parse fail randomly)
 moved from bones to jeweler
 term/ansicolor module configured as Mixin for strings
