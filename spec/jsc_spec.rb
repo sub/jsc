@@ -161,7 +161,7 @@ describe JSCompiler do
       end
  
       it 'should receive the compiled code' do
-        @resp.should be_nil
+        @resp.should_not be_nil
       end
     end
     
