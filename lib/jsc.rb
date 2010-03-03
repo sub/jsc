@@ -1,7 +1,7 @@
 module JSCompiler
 
   # :stopdoc:
-   VERSION = '0.2.2'
+   VERSION = '0.2.3'
 #  LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
 #  PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
   # :startdoc:

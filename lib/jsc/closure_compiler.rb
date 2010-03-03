@@ -108,13 +108,36 @@ module JSCompiler
     # * <b>file</b>: 0 => arg is code
     #                1 => arg is a file path
     # * <b>level</b>: compilation_level parameter
-    def full_compile(arg, file, level, type)
-      ['errors', 'warnings','compiled_code'].each do |x|
+    def cleancode(arg, file, level, type)
+      ['errors', 'warnings', 'compiled_code'].each do |x|
         str = JSCompiler.compile(arg, file, x, level, type)
         return str unless str.eql?("No " + x)
       end
     end
-    
+
+    # Compiles a file or a piece of code for
+    # errors or warnings. Returns nothing if no
+    # errors or warnings are found
+    #
+    # Accepted parameters:
+    # * <b>arg</b>: the code or the file path to compile
+    # * <b>file</b>: 0 => arg is code
+    #                1 => arg is a file path
+    # * <b>level</b>: compilation_level parameter
+    def full_compile(arg, file, level, type)
+      errors_log = compile(arg, file, "errors", level, type)
+      str = ""
+      if errors_log.eql?("No errors")
+        warnings_log = compile(arg, file, "warnings", level, type)
+        str = warnings_log unless warnings_log.eql?("No warnings")
+      else
+        str = errors_log
+      end
+      
+      str
+
+    end
+
     # Calls compile method for every file in <em>dir</em> directory
     #
     # Accepted parameters:

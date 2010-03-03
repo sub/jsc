@@ -30,7 +30,10 @@ jsc [options] ... ARG
    get statistics for compiled code
 
 --all, -a:
-   execute every check for this code
+   execute error and warnings check for this code
+
+--cleancode:
+   returns compiled code if no errors or warnings are found
 
 --level value, -l value:
    compile with level value
@@ -51,12 +54,12 @@ jsc [options] ... ARG
 
 ARG: A path to a javascript file or the code that will be compiled.
 
-If one of the following options is not specified
+You can use only ONE of the following options
 
--e, -w, -s, -a
+-e, -w, -s, -a, --cleancode
 
-the code will be first compiled for errors and only if no errors are found 
-it will return the compiled code 
+If none is specified then the  code will be first compiled for errors 
+and only if no errors are found it will return the compiled code.
 EOU
 
 opts = GetoptLong.new(
@@ -67,6 +70,7 @@ opts = GetoptLong.new(
                       [ '--warns', '-w', GetoptLong::NO_ARGUMENT ],
                       [ '--stats', '-s', GetoptLong::NO_ARGUMENT ],
                       [ '--all', '-a', GetoptLong::NO_ARGUMENT ],
+                      [ '--cleancode', GetoptLong::NO_ARGUMENT ],
                       [ '--level','-l',  GetoptLong::REQUIRED_ARGUMENT ],
                       [ '--debug', GetoptLong::NO_ARGUMENT ],
                       [ '--flymake','-f',  GetoptLong::NO_ARGUMENT ]
@@ -102,6 +106,8 @@ opts.each do |opt, arg|
     output_info = "statistics"
   when '--all'
     output_info = "all"
+  when '--cleancode'
+    output_info = "clean"
   when '--flymake'
     type = "flymake"
   end
@@ -116,8 +122,14 @@ end
 arg = code.blank? ? ARGV.shift : code
 
 if output_info.eql?("all")
-  puts JSCompiler.full_compile(arg, file, level, type)
+  full_compile_log = JSCompiler.full_compile(arg, file, level, type)
+  puts full_compile_log unless full_compile_log.blank?
+elsif output_info.eql?("clean")
+  clean_compile_log = JSCompiler.cleancode(arg, file, level, type)
+  puts clean_compile_log unless clean_compile_log.blank?
 elsif output_info.blank?
+  # I'm here if none of -e,-w,-a,-s is specified so
+  # I compile only for errors and, if not, for compiled_code
   errors_output = JSCompiler.compile(arg, file, "errors", level, type)
   unless errors_output.eql?("No errors")
     puts errors_output
@@ -125,5 +137,6 @@ elsif output_info.blank?
     puts JSCompiler.compile(arg, file, "", level, type)
   end
 else
+  # Some option is specified, I pass that to compile()
   puts JSCompiler.compile(arg, file, output_info, level, type)
 end

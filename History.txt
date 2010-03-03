@@ -1,3 +1,8 @@
+== 0.2.3 / 2010-02-27
+
+now I have a different but a quicker -a option (flymake improvement)
+added --cleancode option, it's the old -a option
+
 == 0.2.2 / 2010-02-27
 
 added support for different types of formatters with a new parser module

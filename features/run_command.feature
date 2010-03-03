@@ -44,7 +44,7 @@ Feature: Run jsc command
 
   Scenario: Get version
     When I run "jsc --version"
-    Then I should see "0.2.2"
+    Then I should see "0.2.3"
     And the exit status should be 0
 
   # Scenario: Get compiled code
