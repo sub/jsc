@@ -17,7 +17,7 @@ The package comes with a jsc command which accepts several options, run:
 for help.
 
 More in details:
-* Ruby API actually is a single function call ( ex: JSCompiler.compile(file_name, "statistics", "SIMPLE_OPTIMIZATIONS") )
+* Ruby API actually is a single function call, JSCompiler.compile()
 * Handling of JSON responses, parse and print them (same output of the Google web interface!)
 * Handling of Server Errors responses
 * Compile a file or a piece of code
@@ -48,7 +48,7 @@ Compile a piece of code, check for errors:
 
   jsc -e -c "function("
 
-Compile a file and get compiled code if no errors or warnings are found:
+Compile a file for both errors and warnings:
 
   jsc js/compiled_code.js -a
 
