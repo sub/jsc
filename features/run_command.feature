@@ -47,7 +47,6 @@ Feature: Run jsc command
     Then I should see "0.2.3"
     And the exit status should be 0
 
-  # Scenario: Get compiled code
   Scenario: Compile file and get errors
     When I run "jsc js/errors.js -e"
     Then I should see "You've got 2 errors"

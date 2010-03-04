@@ -122,21 +122,16 @@ end
 arg = code.blank? ? ARGV.shift : code
 
 if output_info.eql?("all")
-  full_compile_log = JSCompiler.full_compile(arg, file, level, type)
-  puts full_compile_log unless full_compile_log.blank?
+  JSCompiler.full_compile(arg, file, level, type)
 elsif output_info.eql?("clean")
-  clean_compile_log = JSCompiler.cleancode(arg, file, level, type)
-  puts clean_compile_log unless clean_compile_log.blank?
+  JSCompiler.cleancode(arg, file, level, type)
+  #puts clean_compile_log unless clean_compile_log.blank?
 elsif output_info.blank?
   # I'm here if none of -e,-w,-a,-s is specified so
   # I compile only for errors and, if not, for compiled_code
-  errors_output = JSCompiler.compile(arg, file, "errors", level, type)
-  unless errors_output.eql?("No errors")
-    puts errors_output
-  else
-    puts JSCompiler.compile(arg, file, "", level, type)
-  end
+  errors = JSCompiler.compile(arg, file, "errors", level, type)
+  JSCompiler.compile(arg, file, "", level, type) unless errors
 else
   # Some option is specified, I pass that to compile()
-  puts JSCompiler.compile(arg, file, output_info, level, type)
+  JSCompiler.compile(arg, file, output_info, level, type)
 end
