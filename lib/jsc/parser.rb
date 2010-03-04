@@ -11,39 +11,33 @@ module JSCompiler
       
       # window_message_handlers.js:73: strict warning: trailing comma is not legal in ECMA-262 object initializers:
       def flymake_parser(result)
-        if $debug
-          puts "#DEBUG flymake parser \n"
-        end
+        puts "#DEBUG flymake parser \n" if $debug
 
-        #TODO
-        out = ""
+        errors = false
         op = JSCompiler.op
         unless result.nil?
           file = JSCompiler.file
           format_type = JSCompiler.format_type
-
-          num = result.size
           result.each do |message|
             out << "#{file}:#{message['lineno']}: #{op.singularize}: #{message['type']}: " + message[op.singularize] +"\n"
             out << "#{file}:#{message['lineno']}: #{op.singularize}: #{message['line']} \n" unless message['line'].nil?
             out << "#{file}:#{message['lineno']}: #{op.singularize}: " + print_under_character(message['charno'])
           end
+          errors = true
         else
           out = "No #{op}"
         end
-        return out
+        puts out if errors
+        errors
       end
 
-      def default_parser(result)
-        out = ""
-        
-        if $debug
-          puts "#DEBUG default parser \n"
-        end
+      def default_parser(result)     
+        puts "#DEBUG default parser \n" if $debug
 
+        out = ""
+        errors = false
         op = JSCompiler.op
         unless result.nil?
-          num = result.size
           out << "You've got #{result.size} #{op}\n"
           i = 0
           result.each do |message|
@@ -53,10 +47,12 @@ module JSCompiler
             out << "\t" + message['line'] + "\n" unless message['line'].nil?
             out << "\t" + print_under_character(message['charno'])
           end
-          out
+          errors = true
         else
           "No #{op}"
         end
+        puts out if errors
+        errors
       end
 
       def print_under_character(pos)
@@ -66,7 +62,6 @@ module JSCompiler
           auto_fill << "."
           i = i+1
         end
-        
         auto_fill << " ^ \n"
       end
 

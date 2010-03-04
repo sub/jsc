@@ -47,7 +47,6 @@ Feature: Run jsc command
     Then I should see "0.2.3"
     And the exit status should be 0
 
-  # Scenario: Get compiled code
   Scenario: Compile file and get errors
     When I run "jsc js/errors.js -e"
     Then I should see "You've got 2 errors"
@@ -61,7 +60,34 @@ Feature: Run jsc command
     Then I should see "Original Size:"
     And I should see "Compiled Size:"
 
+  Scenario: Full compile (get errors)
+    When I run "jsc js/errors.js -a"
+    Then I should see "You've got 2 errors"
+
+  Scenario: Full compile (get warnings)
+    When I run "jsc js/warnings.js -a"
+    Then I should see "You've got 1 warnings"
+
+  Scenario: Full compile (no error or warnings)
+    When I run "jsc js/compiled_code.js -a"
+    Then I should see ""
+    And I should not see "You've got"
+
+  Scenario: Clean compile (get errors)
+    When I run "jsc js/errors.js --compile"
+    Then I should see "You've got 2 errors"
+
+  Scenario: Clean compile (get warnings)
+    When I run "jsc js/warnings.js --compile"
+    Then I should see "You've got 1 warnings"
+
+  Scenario: Full compile (no error or warnings)
+    When I run "jsc js/compiled_code.js --compile"
+    Then I should see "function"
+    And I should not see "You've got"
+
   Scenario: Compile with flymake mode
     When I run "jsc js/errors.js -e --flymake"
     Then I should see "js/errors.js:3: error: JSC_PARSE_ERROR: Parse error. syntax error"
     Then I should not see "You've got 2 errors"
+

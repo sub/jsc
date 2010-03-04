@@ -76,7 +76,6 @@ module JSCompiler
       self.level = level.blank? ? DEFAULT_LEVEL : level
       self.format_type = type.blank? ? DEFAULT_TYPE : type
       self.file = ""
-      value = true
 
       begin
         if is_file
@@ -110,8 +109,8 @@ module JSCompiler
     # * <b>level</b>: compilation_level parameter
     def cleancode(arg, file, level, type)
       ['errors', 'warnings', 'compiled_code'].each do |x|
-        str = JSCompiler.compile(arg, file, x, level, type)
-        return str unless str.eql?("No " + x)
+        errors = JSCompiler.compile(arg, file, x, level, type)
+        return errors if errors
       end
     end
 
@@ -125,17 +124,12 @@ module JSCompiler
     #                1 => arg is a file path
     # * <b>level</b>: compilation_level parameter
     def full_compile(arg, file, level, type)
-      errors_log = compile(arg, file, "errors", level, type)
-      str = ""
-      if errors_log.eql?("No errors")
-        warnings_log = compile(arg, file, "warnings", level, type)
-        str = warnings_log unless warnings_log.eql?("No warnings")
-      else
-        str = errors_log
+      errors = compile(arg, file, "errors", level, type)
+      unless errors
+        errors = compile(arg, file, "warnings", level, type)
       end
       
-      str
-
+      errors
     end
 
     # Calls compile method for every file in <em>dir</em> directory
@@ -162,17 +156,19 @@ module JSCompiler
     def parse_json_output(response)
       out = ""
       parsed_response = ActiveSupport::JSON.decode(response)
+      errors, compiled_code = false
 
       if parsed_response.has_key?("serverErrors") 
         result = parsed_response['serverErrors']
         error_message = "Server Error: #{result[0]['error']} \n"
         error_message << "Error Code: #{result[0]['code']}"
-        return error_message.red
-#        return red, bold, error_message, reset
+        out = error_message.red
+        # return red, bold, error_message, reset
       end
 
       case self.op
       when "compiled_code"
+        compiled_code = true
         out = parsed_response['compiledCode']
       when "statistics"
         result = parsed_response['statistics']
@@ -182,13 +178,16 @@ module JSCompiler
         begin
           result = parsed_response[self.op]
           # call parser
-#          return parse(result)
-          JSCompiler::Parser.parse(result)
+          # return parse(result)
+          errors = JSCompiler::Parser.parse(result)
         rescue StandardError => e
           out = e
           out << "Error parsing JSON output...Check it."
         end
       end
+
+      puts out if (errors || compiled_code)
+      errors
     end
 
     # Reads file and returns its content
@@ -216,8 +215,8 @@ module JSCompiler
       out = "Original Size: #{result['originalSize']} bytes (#{result['originalGzipSize']} bytes gzipped) \n"
       out << "Compiled Size: #{result['compressedSize']} bytes (#{result['compressedGzipSize']} bytes gzipped) \n"
       out << "\t Saved #{rate_improvement}% off the original size (#{rate_gzip_improvement}% off the gzipped size)"
+      puts out
     end
 
   end
-
 end
