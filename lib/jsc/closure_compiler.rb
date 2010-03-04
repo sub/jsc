@@ -110,7 +110,7 @@ module JSCompiler
     def cleancode(arg, file, level, type)
       ['errors', 'warnings', 'compiled_code'].each do |x|
         errors = JSCompiler.compile(arg, file, x, level, type)
-        return errors unless errors
+        return errors if errors
       end
     end
 
